@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Your Email — InterviewOS</title>
+  <meta name="description" content="Verify your email address to continue to InterviewOS — the professional technical interview platform." />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="otp.css" />
+</head>
+
+<body>
+
+  <!-- ========================================================================
+       HEADER — Sticky, crisp 2px border, technical neubrutalist lockup
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+
+      <!-- Logo Lockup -->
+      <a class="logo-lockup" href="#" aria-label="InterviewOS home">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </div>
+        <div class="logo-text-block">
+          <span class="logo-name">InterviewOS</span>
+          <span class="logo-sub">v2.0 / Platform</span>
+        </div>
+      </a>
+
+      <!-- Header Right: Technical Badge & Navigation -->
+      <div class="header-right">
+        <div class="header-badge" aria-hidden="true">
+          <span class="header-badge-dot"></span>
+          Technical Interview Platform
+        </div>
+        <a href="signin.html" class="header-nav-link">Sign In</a>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ========================================================================
+       MAIN CONTENT — Two-column technical editorial layout
+       ======================================================================== -->
+  <main>
+    <div class="main-content">
+
+      <!-- ── LEFT COLUMN: Editorial Announcement & Footer ── -->
+      <section class="editorial-col" aria-label="Overview">
+
+        <div class="editorial-top">
+          <!-- Yellow rotated badge -->
+          <div class="editorial-badge">
+            <span class="badge-dot"></span>
+            HIRING PLATFORM &middot; V2.0
+          </div>
+
+          <!-- Large Display Heading -->
+          <h1 class="editorial-heading">
+            Verify<br />
+            <span class="heading-chip">your email.</span>
+          </h1>
+
+          <!-- Graphic Horizontal Divider -->
+          <hr class="editorial-rule" />
+
+          <!-- Editorial Supporting Text -->
+          <p class="editorial-sub">
+            We’ve sent a verification code to your email address. Enter the code below to continue your interview journey.
+          </p>
+        </div>
+
+        <!-- Left-side Technical Footer -->
+        <footer class="editorial-footer">
+          <div class="editorial-footer-brand">INTERVIEWOS &copy; 2026</div>
+          <div class="editorial-footer-tagline">Built for better technical interviews</div>
+          <nav class="editorial-footer-links" aria-label="Legal links">
+            <a href="#" class="editorial-footer-link">Privacy</a>
+            <span class="editorial-footer-sep">&middot;</span>
+            <a href="#" class="editorial-footer-link">Terms</a>
+            <span class="editorial-footer-sep">&middot;</span>
+            <a href="#" class="editorial-footer-link">Security</a>
+          </nav>
+        </footer>
+
+      </section><!-- /editorial-col -->
+
+
+      <!-- ── RIGHT COLUMN: OTP Verification Auth Panel ── -->
+      <section class="form-col" aria-label="OTP Verification Form">
+
+        <!-- Main Form Heading & Underline -->
+        <h2 class="form-heading">VERIFY YOUR EMAIL</h2>
+        <div class="form-heading-underline" aria-hidden="true"></div>
+
+        <!-- Supporting Text -->
+        <p class="form-subheading">Enter your email and the 6-digit verification code</p>
+
+        <!-- Email Input Field — Visually matches Sign In page -->
+        <div class="form-group">
+          <label class="form-label" for="email-input">EMAIL</label>
+          <div class="form-input-wrap">
+            <input
+              class="form-input"
+              type="email"
+              id="email-input"
+              name="email"
+              placeholder="Enter your email address"
+              autocomplete="email"
+              spellcheck="false"
+            />
+          </div>
+        </div>
+
+        <!-- Static OTP Section — 6 Rectangular Input Boxes (Empty Initial State) -->
+        <div class="otp-container">
+          <label class="form-label" for="otp-1">VERIFICATION CODE</label>
+          <div class="otp-inputs-grid" role="group" aria-label="6-digit verification code">
+            <input
+              type="text"
+              class="otp-box"
+              id="otp-1"
+              maxlength="1"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              autocomplete="one-time-code"
+              aria-label="Digit 1"
+            />
+            <input
+              type="text"
+              class="otp-box"
+              id="otp-2"
+              maxlength="1"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              aria-label="Digit 2"
+            />
+            <input
+              type="text"
+              class="otp-box"
+              id="otp-3"
+              maxlength="1"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              aria-label="Digit 3"
+            />
+            <input
+              type="text"
+              class="otp-box"
+              id="otp-4"
+              maxlength="1"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              aria-label="Digit 4"
+            />
+            <input
+              type="text"
+              class="otp-box"
+              id="otp-5"
+              maxlength="1"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              aria-label="Digit 5"
+            />
+            <input
+              type="text"
+              class="otp-box"
+              id="otp-6"
+              maxlength="1"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              aria-label="Digit 6"
+            />
+          </div>
+        </div>
+
+        <!-- Resend Metadata & Countdown -->
+        <div class="otp-resend-meta">
+          <div class="countdown-badge">
+            <span class="countdown-pulse" aria-hidden="true"></span>
+            <span>Resend code in 00:45</span>
+          </div>
+
+          <div class="resend-text-row">
+            <span>Didn’t receive the code?</span>
+            <a href="#" class="link-resend">Resend code</a>
+          </div>
+        </div>
+
+        <!-- Primary CTA Button -->
+        <button type="button" class="btn-primary" id="verify-btn">
+          VERIFY &amp; SIGN IN
+          <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </button>
+
+        <!-- Back to Sign In Link -->
+        <div class="auth-back-row">
+          <a href="signin.html" class="link-back">
+            <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5"></path>
+              <path d="m12 19-7-7 7-7"></path>
+            </svg>
+            Back to Sign In
+          </a>
+        </div>
+
+      </section><!-- /form-col -->
+
+    </div><!-- /main-content -->
+  </main>
+
+  <!-- Visual UI Script: Handles active OTP box visual movement on input/focus -->
+  <script>
+    (function () {
+      const otpBoxes = Array.from(document.querySelectorAll('.otp-box'));
+      if (!otpBoxes.length) return;
+
+      function updateActiveStates() {
+        const activeEl = document.activeElement;
+        otpBoxes.forEach((box) => {
+          const isActive = (box === activeEl);
+          box.classList.toggle('is-active', isActive);
+          box.classList.toggle('is-filled', box.value.trim().length > 0);
+        });
+      }
+
+      otpBoxes.forEach((box, index) => {
+        // When typing a digit: fill box and advance focus to next box
+        box.addEventListener('input', () => {
+          const val = box.value.trim();
+          if (val.length > 1) {
+            box.value = val.slice(-1);
+          }
+          if (box.value && index < otpBoxes.length - 1) {
+            otpBoxes[index + 1].focus();
+          }
+          updateActiveStates();
+        });
+
+        // Key navigation (backspace & arrows)
+        box.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace') {
+            if (!box.value && index > 0) {
+              e.preventDefault();
+              otpBoxes[index - 1].value = '';
+              otpBoxes[index - 1].focus();
+            }
+          } else if (e.key === 'ArrowLeft' && index > 0) {
+            e.preventDefault();
+            otpBoxes[index - 1].focus();
+          } else if (e.key === 'ArrowRight' && index < otpBoxes.length - 1) {
+            e.preventDefault();
+            otpBoxes[index + 1].focus();
+          }
+        });
+
+        // Paste support for mockup testing
+        box.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const pasted = (e.clipboardData || window.clipboardData).getData('text').trim();
+          if (!pasted) return;
+          const chars = pasted.split('').slice(0, otpBoxes.length - index);
+          chars.forEach((ch, i) => {
+            if (otpBoxes[index + i]) {
+              otpBoxes[index + i].value = ch;
+            }
+          });
+          const nextIdx = Math.min(index + chars.length, otpBoxes.length - 1);
+          otpBoxes[nextIdx].focus();
+          updateActiveStates();
+        });
+
+        box.addEventListener('focus', updateActiveStates);
+        box.addEventListener('blur', updateActiveStates);
+      });
+    })();
+  </script>
+</body>
+</html>

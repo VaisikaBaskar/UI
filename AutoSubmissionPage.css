@@ -1,0 +1,503 @@
+/* ==========================================================================
+   InterviewOS — AutoSubmissionPage.css
+   Scoped styles for React AutoSubmissionPage Component
+   Visual Language: Neubrutalist / Technical Editorial / Developer-Focused
+   Reuses the design system, layout, typography, borders, shadows & colors of
+   submission-confirmation-wireframe.html.
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root,
+.auto-submission-root {
+  --black:         #0a0a0a;
+  --white:         #ffffff;
+  --off-white:     #fafafa;
+  --bg-page:       #fbfbfa;
+  --gray-50:       #fafaf9;
+  --gray-100:      #f2f2f0;
+  --gray-200:      #e2e2de;
+  --gray-300:      #c8c8c2;
+  --gray-400:      #9c9c94;
+  --gray-500:      #686860;
+  --gray-600:      #4e4e47;
+  --gray-700:      #363630;
+  --gray-800:      #22221e;
+  --gray-900:      #141412;
+
+  --yellow:        #ffe500;
+  --yellow-hover:  #ebd300;
+  --blue:          #2563eb;
+  --green:         #16a34a;
+
+  /* Alert Red strictly isolated to the alert box: Exact sample color #FF2056 with black border */
+  --alert-red:        #FF2056;
+  --alert-red-bg:     #FF2056;
+  --alert-red-border: #0a0a0a;
+
+  --shadow-hard:   6px 6px 0px 0px #0a0a0a;
+  --shadow-md:     4px 4px 0px 0px #0a0a0a;
+  --shadow-sm:     3px 3px 0px 0px #0a0a0a;
+  --shadow-xs:     2px 2px 0px 0px #0a0a0a;
+
+  --font-sans:     'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:     'JetBrains Mono', monospace;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body,
+.auto-submission-page {
+  font-family: var(--font-sans);
+  background-color: var(--white);
+  background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+  color: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* STICKY SITE HEADER (Identical to Assessment Submitted Page) */
+.site-header,
+.auto-submission-header {
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+  flex-shrink: 0;
+}
+
+.header-inner,
+.auto-submission-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-lockup,
+.auto-submission-logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--black);
+}
+
+.logo-icon,
+.auto-submission-logo-icon {
+  width: 30px;
+  height: 30px;
+  background: var(--black);
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.logo-icon svg,
+.auto-submission-logo-icon svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--white);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.logo-text-block,
+.auto-submission-logo-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.logo-name,
+.auto-submission-logo-name {
+  font-size: 12.5px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: 1;
+}
+
+.logo-sub,
+.auto-submission-logo-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--gray-400);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.header-right-tag,
+.auto-submission-header-right-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* MAIN CENTERED CONTENT CONTAINER (Compact to fit within viewport without scrolling) */
+main,
+.auto-submission-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+}
+
+.confirmation-card,
+.auto-submission-card {
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-hard);
+  max-width: 560px;
+  width: 100%;
+  padding: 16px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0;
+}
+
+/* Minimal Neubrutalist Visual Indicator at Top */
+.success-icon-box {
+  width: 44px;
+  height: 44px;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-hard);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  transform: rotate(-1.5deg);
+}
+
+.success-icon-box svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--black);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* Technical Status Badge (Yellow background, black text, black border, offset shadow) */
+.status-badge,
+.auto-submission-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--yellow);
+  border: 1.5px solid var(--black);
+  padding: 2px 8px;
+  box-shadow: 2px 2px 0px var(--black);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 6px;
+  border-radius: 0;
+}
+
+.status-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--black);
+}
+
+/* Main Heading */
+.confirm-heading,
+.auto-submission-heading {
+  font-size: clamp(20px, 2.6vw, 24px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--black);
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 3px;
+}
+
+/* Subtitle */
+.confirm-sub,
+.auto-submission-confirm-sub {
+  font-size: 11px;
+  color: var(--gray-500);
+  line-height: 1.3;
+  margin-bottom: 8px;
+  max-width: 440px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Single Alert Box (Sample red #FF2056 background, solid black 2px border, black offset shadow) */
+.alert-box,
+.auto-submission-alert-box {
+  width: 100%;
+  background: var(--alert-red-bg);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-xs);
+  padding: 8px 14px;
+  margin-bottom: 10px;
+  text-align: left;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.alert-headline,
+.auto-submission-alert-headline {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 900;
+  color: var(--black);
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+
+.alert-subtext,
+.auto-submission-alert-subtext {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Assessment Details Box (Exact match to Assessment Submitted summary-matrix) */
+.summary-matrix,
+.auto-submission-summary-matrix {
+  width: 100%;
+  border: 2px solid var(--black);
+  background: var(--gray-50);
+  padding: 8px 14px;
+  box-shadow: var(--shadow-xs);
+  margin-bottom: 10px;
+  text-align: left;
+  font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 0;
+}
+
+.summary-row,
+.auto-submission-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--gray-300);
+  padding-bottom: 4px;
+  font-size: 11px;
+  gap: 12px;
+}
+
+.summary-row:last-child,
+.auto-submission-summary-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.summary-label,
+.auto-submission-summary-label {
+  color: var(--gray-500);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.summary-val,
+.auto-submission-summary-val {
+  font-weight: 800;
+  color: var(--black);
+  text-align: right;
+  word-break: break-word;
+}
+
+/* CTA Buttons Group */
+.cta-stack,
+.auto-submission-cta-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-primary,
+.auto-submission-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 38px;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 2px solid var(--black);
+  border-radius: 0;
+  box-shadow: var(--shadow-hard);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.12s ease;
+}
+
+.btn-primary:hover,
+.auto-submission-btn-primary:hover {
+  background: var(--yellow);
+  color: var(--black);
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0px var(--black);
+}
+
+.btn-secondary,
+.auto-submission-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 32px;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.12s;
+  border-radius: 0;
+}
+
+.btn-secondary:hover,
+.auto-submission-btn-secondary:hover {
+  background: var(--yellow);
+  color: var(--black);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--black);
+}
+
+/* Production Footer */
+.site-footer,
+.auto-submission-footer {
+  border-top: 2px solid var(--black);
+  background: var(--white);
+  padding: 8px 24px;
+  flex-shrink: 0;
+}
+
+.site-footer-inner,
+.auto-submission-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.site-footer-brand,
+.auto-submission-footer-brand {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+.site-footer-tagline,
+.auto-submission-footer-tagline {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+.site-footer-links,
+.auto-submission-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.site-footer-link,
+.auto-submission-footer-link {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.12s;
+}
+
+.site-footer-link:hover,
+.auto-submission-footer-link:hover {
+  color: var(--black);
+}
+
+.site-footer-sep,
+.auto-submission-footer-sep {
+  font-size: 9px;
+  color: var(--gray-300);
+  margin: 0 8px;
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 480px) {
+  .summary-row,
+  .auto-submission-summary-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .summary-val,
+  .auto-submission-summary-val {
+    text-align: left;
+  }
+}

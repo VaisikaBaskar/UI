@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trainer Workspace — InterviewOS</title>
+  <meta name="description" content="Trainer Workspace for InterviewOS: Manage Question Banks and Prepare Candidate Assessments." />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Dedicated Stylesheet -->
+  <link rel="stylesheet" href="trainer-home.css?v=1.2" />
+  <link rel="stylesheet" href="create-assessment-modal.css" />
+  <link rel="stylesheet" href="bulk-upload.css" />
+</head>
+<body>
+
+  <!-- ========================================================================
+       PAGE HEADER
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-lockup">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </div>
+        <div class="logo-text-block">
+          <div class="logo-name">INTERVIEWOS</div>
+          <div class="logo-sub">TRAINER WORKSPACE // INTERVIEWOS V2.0</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="header-portal-tag">TRAINER PORTAL</div>
+
+        <div class="trainer-profile-chip">
+          <div class="trainer-avatar">VS</div>
+          <div class="trainer-meta">
+            <span class="trainer-name">PROF. VIKRAM SEN</span>
+            <span class="trainer-role">LEAD EVALUATOR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN CONTAINER
+       ======================================================================== -->
+  <main>
+    <div class="main-content">
+
+      <!-- EDITORIAL HERO HEADER -->
+      <section class="hero-editorial" aria-label="Page Title">
+        <div class="editorial-badge">
+          <span class="badge-dot"></span>
+          <span>TRAINER WORKSPACE // QUESTION &amp; ASSESSMENT MANAGEMENT</span>
+        </div>
+        <h1 class="editorial-heading">
+          TRAINER<span class="heading-chip">WORKSPACE.</span>
+        </h1>
+        <p class="editorial-subtitle">
+          Create, manage, organize, and prepare assessment questions for InterviewOS candidates.
+        </p>
+      </section>
+
+      <!-- TWO PRIMARY TABS -->
+      <nav class="tabs-nav-bar" aria-label="Trainer Workspace Sections">
+        <button
+          type="button"
+          class="tab-btn is-active"
+          id="tab-btn-qb"
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel-qb"
+        >
+          <span class="tab-num">01</span>
+          <span>QUESTION BANK</span>
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          id="tab-btn-assess"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-assess"
+        >
+          <span class="tab-num">02</span>
+          <span>ASSESSMENT</span>
+        </button>
+      </nav>
+
+      <!-- ====================================================================
+           TAB 01: QUESTION BANK PANEL
+           ==================================================================== -->
+      <section
+        id="panel-qb"
+        class="tab-panel is-active"
+        role="tabpanel"
+        aria-labelledby="tab-btn-qb"
+      >
+        <!-- Section Header -->
+        <div class="section-header-card">
+          <div class="section-header-left">
+            <h2 class="section-title">QUESTION BANK.</h2>
+            <p class="section-subtitle">
+              Manage saved question banks and create new MCQ questions.
+            </p>
+          </div>
+          <div class="section-header-actions" style="display:flex;align-items:center;gap:12px;">
+            <button
+              type="button"
+              class="btn-create-mcq"
+              id="btn-create-mcq"
+              title="Create Question Bank"
+            >
+              + CREATE QUESTION BANK
+            </button>
+            <button
+              type="button"
+              class="btn-bulk-upload"
+              id="btn-bulk-upload"
+              title="Bulk Upload MCQs using Excel"
+            >
+              + BULK UPLOAD
+            </button>
+          </div>
+        </div>
+
+        <!-- Toolbar Strip: Title + Search & Filters -->
+        <div class="toolbar-strip">
+          <div class="toolbar-title-box">
+            <span class="toolbar-title">SAVED QUESTION BANKS</span>
+            <span class="toolbar-badge" id="qb-count-badge">1 BANK</span>
+          </div>
+
+          <div class="toolbar-controls">
+            <div class="search-box-wrap">
+              <svg class="search-icon" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input
+                type="text"
+                class="search-input"
+                id="qb-search-input"
+                placeholder="Search question banks..."
+                autocomplete="off"
+              />
+            </div>
+
+            <!-- INSTITUTE Filter Dropdown -->
+            <div class="filter-dropdown-group">
+              <div class="select-wrapper">
+                <select
+                  id="qb-filter-institute"
+                  class="filter-dropdown-select"
+                  aria-label="Filter by Institute"
+                >
+                  <option value="all" selected>ALL INSTITUTES</option>
+                  <option value="InterviewOS Training Academy">INTERVIEWOS TRAINING ACADEMY</option>
+                </select>
+                <svg class="select-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <!-- STAGE Filter Dropdown -->
+            <div class="filter-dropdown-group">
+              <div class="select-wrapper">
+                <select
+                  id="qb-filter-stage"
+                  class="filter-dropdown-select"
+                  aria-label="Filter by Stage"
+                >
+                  <option value="all" selected>ALL STAGES</option>
+                  <option value="APTITUDE">APTITUDE</option>
+                  <option value="CODING">CODING</option>
+                  <option value="COMMUNICATION">COMMUNICATION</option>
+                </select>
+                <svg class="select-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question Banks Grid -->
+        <div class="cards-grid-container" id="qb-cards-grid">
+          <!-- Dynamically populated / fallback cards rendered here -->
+        </div>
+
+        <!-- Empty State (Hidden by default, shown if 0 banks) -->
+        <div class="empty-state-box" id="qb-empty-state" style="display: none;">
+          <div class="empty-state-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+          </div>
+          <h3 class="empty-state-title">NO QUESTION BANKS CREATED YET</h3>
+          <p class="empty-state-desc">
+            Create your first Question Bank to organize MCQ questions for assessments.
+          </p>
+          <button type="button" class="btn-create-mcq" data-open-create-assessment-modal>
+            + CREATE QUESTION BANK
+          </button>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 02: ASSESSMENT CREATION PANEL
+           ==================================================================== -->
+      <section
+        id="panel-assess"
+        class="tab-panel"
+        role="tabpanel"
+        aria-labelledby="tab-btn-assess"
+      >
+        <!-- ====================================================================
+             1. CREATE ASSESSMENT HEADER
+             ==================================================================== -->
+        <div class="section-header-card">
+          <div class="section-header-left">
+            <h2 class="section-title">CREATE ASSESSMENT</h2>
+            <p class="section-subtitle">
+              Build and configure an assessment by adding modules, selecting question banks, and defining assessment details.
+            </p>
+          </div>
+        </div>
+
+        <!-- CREATE ASSESSMENT FORM -->
+        <form id="create-assessment-form" class="create-assess-form" novalidate>
+
+          <!-- ====================================================================
+               2. ASSESSMENT DETAILS
+               ==================================================================== -->
+          <div class="assess-form-card">
+            <div class="assess-card-header">
+              <div class="assess-card-title-group">
+                <span class="assess-section-step">SECTION 01</span>
+                <h3 class="assess-card-title">ASSESSMENT DETAILS</h3>
+              </div>
+            </div>
+
+            <div class="assess-card-body">
+              <div class="assess-field-group">
+                <label class="assess-field-label" for="assess-name-input">
+                  <span>ASSESSMENT NAME</span>
+                  <span class="required-marker">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="assess-name-input"
+                  class="assess-text-input"
+                  placeholder="Enter assessment name..."
+                  required
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="assess-field-group">
+                <label class="assess-field-label" for="assess-desc-input">
+                  <span>DESCRIPTION</span>
+                </label>
+                <textarea
+                  id="assess-desc-input"
+                  class="assess-textarea-input"
+                  placeholder="Enter assessment description, instructions, or evaluation criteria..."
+                  rows="4"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====================================================================
+               3. ASSESSMENT MODULES
+               ==================================================================== -->
+          <div class="assess-form-card">
+            <div class="assess-card-header">
+              <div class="assess-card-title-group">
+                <span class="assess-section-step">SECTION 02</span>
+                <h3 class="assess-card-title">ASSESSMENT MODULES</h3>
+              </div>
+              <div class="assess-header-actions">
+                <button
+                  type="button"
+                  id="btn-add-module-top"
+                  class="btn-add-module"
+                >
+                  + ADD MODULE
+                </button>
+              </div>
+            </div>
+
+            <div class="assess-card-body">
+              <!-- Modules Container -->
+              <div id="assess-modules-container" class="assess-modules-list">
+                <!-- Module cards rendered dynamically -->
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ====================================================================
+               6. CREATE ASSESSMENT ACTION
+               ==================================================================== -->
+          <div class="assess-form-footer">
+            <div class="form-footer-left">
+              <span class="footer-hint" id="assess-form-summary">
+                1 MODULE CONFIGURED
+              </span>
+            </div>
+            <div class="form-footer-right">
+              <button
+                type="submit"
+                id="btn-submit-assessment"
+                class="btn-submit-assessment"
+              >
+                CREATE ASSESSMENT
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       PRODUCTION FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-left">
+        <span class="site-footer-brand">INTERVIEWOS &copy; 2026</span>
+        <span class="site-footer-tagline">Built for better technical interviews</span>
+      </div>
+      <nav class="site-footer-links" aria-label="Site legal links">
+        <a href="#" class="site-footer-link">Privacy</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Terms</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Security</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       TOAST NOTIFICATION
+       ======================================================================== -->
+  <div class="toast-notice" id="toast-notice" role="status" aria-live="polite">
+    <span class="toast-icon">⚡</span>
+    <span class="toast-text" id="toast-text">ACTION TRIGGERED</span>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: CREATE QUESTION BANK — STAGE SELECTION & NAME CREATION
+       ======================================================================== -->
+  <div
+    class="stage-modal-overlay"
+    id="create-assessment-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="stage-modal-title"
+    aria-describedby="stage-modal-desc"
+    tabindex="-1"
+    style="display: none;"
+  >
+    <div class="stage-modal-container">
+      <!-- STEP 1: SELECT STAGE -->
+      <div class="stage-step" id="stage-modal-step-1">
+        <div class="stage-modal-header">
+          <div class="stage-modal-kicker">// STAGE CONFIGURATION</div>
+          <h2 class="stage-modal-title" id="stage-modal-title">CREATE QUESTION BANK</h2>
+          <p class="stage-modal-desc" id="stage-modal-desc">
+            Choose the assessment stage for this Question Bank.
+          </p>
+        </div>
+
+        <div class="stage-modal-options" role="group" aria-label="Assessment Stages">
+          <button
+            type="button"
+            class="stage-option-btn"
+            data-stage="APTITUDE"
+            id="btn-stage-aptitude"
+          >
+            <span class="stage-option-index">01</span>
+            <span class="stage-option-title">APTITUDE</span>
+            <span class="stage-option-chevron">→</span>
+          </button>
+
+          <button
+            type="button"
+            class="stage-option-btn"
+            data-stage="CODING"
+            id="btn-stage-coding"
+          >
+            <span class="stage-option-index">02</span>
+            <span class="stage-option-title">CODING</span>
+            <span class="stage-option-chevron">→</span>
+          </button>
+
+          <button
+            type="button"
+            class="stage-option-btn"
+            data-stage="COMMUNICATION"
+            id="btn-stage-communication"
+          >
+            <span class="stage-option-index">03</span>
+            <span class="stage-option-title">COMMUNICATION</span>
+            <span class="stage-option-chevron">→</span>
+          </button>
+        </div>
+
+        <div class="stage-modal-footer">
+          <button
+            type="button"
+            class="stage-cancel-btn"
+            id="btn-stage-cancel"
+          >
+            CANCEL
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: ENTER QUESTION BANK NAME -->
+      <div class="stage-step" id="stage-modal-step-2" style="display: none;">
+        <div class="stage-modal-header">
+          <div class="stage-selected-kicker-wrap">
+            <span class="stage-modal-kicker">// STAGE CONFIGURATION</span>
+            <span class="stage-selected-badge" id="stage-modal-badge">APTITUDE</span>
+          </div>
+          <h2 class="stage-modal-title">CREATE QUESTION BANK</h2>
+          <p class="stage-modal-desc">
+            Enter a unique name for this <span id="stage-modal-stage-text">Aptitude</span> Question Bank.
+          </p>
+        </div>
+
+        <form id="form-create-qb-name" novalidate onsubmit="return false;">
+          <div class="stage-form-group">
+            <div class="stage-label-row">
+              <label class="stage-field-label" for="input-qb-name">QUESTION BANK NAME</label>
+              <span class="stage-required-marker">* REQUIRED</span>
+            </div>
+            <input
+              type="text"
+              id="input-qb-name"
+              class="stage-text-input"
+              placeholder="Enter question bank name..."
+              autocomplete="off"
+            />
+            <div class="stage-error-msg" id="qb-name-error" style="display: none;" role="alert"></div>
+          </div>
+
+          <div class="stage-modal-footer-step2">
+            <button
+              type="button"
+              class="stage-cancel-btn"
+              id="btn-stage-cancel-step2"
+            >
+              CANCEL
+            </button>
+            <button
+              type="submit"
+              class="stage-submit-btn"
+              id="btn-stage-create-qb"
+            >
+              CREATE QUESTION BANK
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: DELETE CONFIRMATION
+       ======================================================================== -->
+  <div
+    class="modal-overlay"
+    id="modal-delete"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-delete-title"
+    style="display: none;"
+  >
+    <div class="modal-container" style="max-width: 480px;">
+      <div class="modal-header" style="background: var(--red); color: var(--white); border-bottom: 2px solid var(--black); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;">
+        <div class="modal-title" id="modal-delete-title" style="color: var(--white); font-family: var(--font-mono); font-size: 13px; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase;">
+          DELETE THIS QUESTION BANK?
+        </div>
+        <button
+          type="button"
+          class="modal-close-btn"
+          id="btn-cancel-delete-x"
+          aria-label="Close delete modal"
+          style="background: transparent; border: none; font-size: 16px; font-weight: 900; color: var(--white); cursor: pointer; line-height: 1;"
+        >✕</button>
+      </div>
+
+      <div class="modal-body" style="padding: 24px 20px; background: var(--white);">
+        <p style="font-size: 14.5px; font-weight: 700; line-height: 1.5; color: var(--black); margin-bottom: 8px;" id="modal-delete-text">
+          Are you sure you want to delete this question bank?
+        </p>
+        <p style="font-family: var(--font-mono); font-size: 11px; color: var(--gray-600); margin: 0; line-height: 1.4;">
+          THIS ACTION WILL REMOVE THE ITEM FROM YOUR LOCAL WORKSPACE.
+        </p>
+      </div>
+
+      <div class="modal-footer" style="padding: 14px 20px; background: var(--gray-100); border-top: 2px solid var(--black); display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
+        <button type="button" class="btn-secondary" id="btn-cancel-delete">
+          CANCEL
+        </button>
+        <button type="button" class="btn-confirm-delete" id="btn-confirm-delete">
+          DELETE QUESTION BANK
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: QUESTION BANK SELECTION PANEL (ASSESSMENT CREATION)
+       ======================================================================== -->
+  <div
+    class="modal-overlay qb-selection-overlay"
+    id="modal-select-qb"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="qb-modal-title"
+    aria-describedby="qb-modal-desc"
+    tabindex="-1"
+    style="display: none;"
+  >
+    <div class="modal-container qb-modal-container">
+      <!-- Modal Header -->
+      <div class="qb-modal-header">
+        <div class="qb-modal-header-text">
+          <div class="qb-modal-kicker">// ASSESSMENT MODULE CONFIGURATION</div>
+          <h2 class="qb-modal-title" id="qb-modal-title">SELECT QUESTION BANK</h2>
+          <p class="qb-modal-desc" id="qb-modal-desc">
+            Choose a Question Bank to add to this assessment module.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="qb-modal-close-btn"
+          id="btn-close-qb-modal"
+          aria-label="Close question bank selection modal"
+        >✕</button>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="qb-modal-toolbar">
+        <div class="qb-modal-search-box">
+          <svg class="qb-modal-search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            id="qb-modal-search-input"
+            class="qb-modal-search-input"
+            placeholder="Search question banks..."
+            autocomplete="off"
+            aria-label="Search question banks"
+          />
+          <button
+            type="button"
+            id="btn-qb-modal-search-clear"
+            class="qb-modal-search-clear"
+            title="Clear search"
+            style="display: none;"
+          >✕</button>
+        </div>
+
+        <div class="qb-modal-filters-row">
+          <span class="qb-modal-filters-label">STATUS:</span>
+          <div class="qb-modal-filters" role="tablist" aria-label="Question Bank Status Filters">
+            <button
+              type="button"
+              class="qb-filter-pill is-active"
+              data-qb-modal-filter="all"
+              role="tab"
+              aria-selected="true"
+            >ALL</button>
+            <button
+              type="button"
+              class="qb-filter-pill"
+              data-qb-modal-filter="published"
+              role="tab"
+              aria-selected="false"
+            >PUBLISHED</button>
+            <button
+              type="button"
+              class="qb-filter-pill"
+              data-qb-modal-filter="draft"
+              role="tab"
+              aria-selected="false"
+            >DRAFT</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Question Bank List Container -->
+      <div class="qb-modal-list-wrapper">
+        <div id="qb-modal-list" class="qb-modal-cards-list" role="list">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Clean Empty State (Search / Filter yields 0 matches) -->
+        <div id="qb-modal-empty" class="qb-modal-empty" style="display: none;">
+          <div class="qb-modal-empty-code">NO QUESTION BANKS FOUND</div>
+          <p class="qb-modal-empty-text">
+            No question banks match your search or filter criteria.
+          </p>
+          <button type="button" class="qb-empty-clear-btn" id="btn-qb-modal-empty-clear">
+            CLEAR SEARCH &amp; FILTERS
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="qb-modal-footer">
+        <div class="qb-modal-footer-left">
+          <span class="qb-modal-count-badge" id="qb-modal-count-badge">
+            SHOWING 0 QUESTION BANKS
+          </span>
+        </div>
+        <div class="qb-modal-footer-right">
+          <button type="button" class="qb-modal-cancel-btn" id="btn-cancel-qb-modal">
+            CANCEL
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: BULK UPLOAD MCQS USING EXCEL
+       ======================================================================== -->
+  <div
+    class="bulk-modal-overlay"
+    id="modal-bulk-upload"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="bulk-modal-title"
+    aria-describedby="bulk-modal-desc"
+  >
+    <div class="bulk-modal-container">
+      <!-- Modal Header -->
+      <div class="bulk-modal-header">
+        <div class="bulk-modal-header-text">
+          <div class="bulk-modal-kicker">// QUESTION BANK</div>
+          <h2 class="bulk-modal-title" id="bulk-modal-title">BULK UPLOAD MCQs</h2>
+          <p class="bulk-modal-desc" id="bulk-modal-desc">
+            Upload multiple MCQ questions using the InterviewOS Excel template.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="bulk-modal-close-btn"
+          id="btn-close-bulk-modal"
+          aria-label="Close bulk upload modal"
+        >✕</button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="bulk-modal-body">
+        <!-- STEP 01: DOWNLOAD TEMPLATE -->
+        <div class="bulk-step-card" id="bulk-step-1">
+          <div class="bulk-step-header">
+            <span class="bulk-step-pill">STEP 01</span>
+            <span class="bulk-step-title">DOWNLOAD TEMPLATE</span>
+          </div>
+          <p class="bulk-step-desc">
+            Download the standard InterviewOS Excel template (.xlsx) with pre-configured columns and an example row.
+          </p>
+          <button type="button" class="btn-bulk-download-template" id="btn-bulk-download-template">
+            <span style="font-size: 15px; font-weight: 900;">↓</span>
+            <span>DOWNLOAD EXCEL TEMPLATE</span>
+          </button>
+        </div>
+
+        <!-- STEP 02: SELECT QUESTION BANK -->
+        <div class="bulk-step-card" id="bulk-step-2">
+          <div class="bulk-step-header">
+            <span class="bulk-step-pill">STEP 02</span>
+            <span class="bulk-step-title">SELECT QUESTION BANK</span>
+          </div>
+          <label class="bulk-field-label" for="bulk-target-bank-select">SELECT TARGET QUESTION BANK</label>
+          <div class="select-wrapper" style="margin-top: 6px;">
+            <select id="bulk-target-bank-select" class="bulk-bank-select">
+              <!-- Dynamically populated with existing Question Banks -->
+            </select>
+          </div>
+          <div class="bulk-bank-preview" id="bulk-target-bank-preview">
+            <!-- Target question bank metadata summary -->
+          </div>
+        </div>
+
+        <!-- STEP 03: UPLOAD FILE -->
+        <div class="bulk-step-card" id="bulk-step-3">
+          <div class="bulk-step-header">
+            <span class="bulk-step-pill">STEP 03</span>
+            <span class="bulk-step-title">UPLOAD FILE</span>
+          </div>
+          <p class="bulk-step-desc">
+            Select an Excel spreadsheet (.xlsx) filled with MCQ questions according to the template.
+          </p>
+
+          <!-- Dropzone -->
+          <div class="bulk-dropzone" id="bulk-file-dropzone">
+            <input type="file" id="bulk-file-input" accept=".xlsx" style="display: none;" />
+            <div class="bulk-dropzone-icon">
+              <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" fill="none" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <polyline points="9 15 12 12 15 15"></polyline>
+              </svg>
+            </div>
+            <button type="button" class="btn-bulk-choose" id="btn-bulk-browse-file">
+              CHOOSE EXCEL FILE
+            </button>
+            <span class="bulk-dropzone-hint">Accepted format: <strong>.xlsx</strong></span>
+          </div>
+
+          <!-- File Info Box (Visible once file selected) -->
+          <div class="bulk-file-info-box" id="bulk-file-info-box" style="display: none;">
+            <div class="bulk-file-meta">
+              <div class="bulk-file-name-wrap">
+                <span class="bulk-file-badge">XLSX</span>
+                <span class="bulk-file-name" id="bulk-file-name-display">filename.xlsx</span>
+              </div>
+              <span class="bulk-file-size" id="bulk-file-size-display">0 KB</span>
+            </div>
+            <div class="bulk-detected-stats">
+              <span class="bulk-detected-badge" id="bulk-detected-questions-badge">0 QUESTIONS DETECTED</span>
+              <button type="button" class="btn-bulk-remove-file" id="btn-bulk-remove-file" title="Change file">✕ CHANGE</button>
+            </div>
+          </div>
+
+          <!-- Validation Error Summary Box (Visible only if invalid rows) -->
+          <div class="bulk-error-card" id="bulk-error-card" style="display: none;">
+            <div class="bulk-error-header">
+              <span class="bulk-error-icon">⚠️</span>
+              <span class="bulk-error-title">IMPORT VALIDATION FAILED</span>
+            </div>
+            <div class="bulk-error-counts" id="bulk-error-counts">
+              <!-- e.g. 3 valid questions · 2 invalid questions -->
+            </div>
+            <div class="bulk-error-list-wrap">
+              <ul class="bulk-error-list" id="bulk-error-list">
+                <!-- Row X: error reasons -->
+              </ul>
+            </div>
+            <div class="bulk-error-footer">
+              Please correct the invalid rows in your Excel file and upload again.
+            </div>
+          </div>
+
+          <!-- Upload Action Button -->
+          <div class="bulk-upload-action-row" id="bulk-upload-action-row" style="margin-top: 14px; display: none;">
+            <button type="button" class="btn-bulk-upload-submit" id="btn-bulk-upload-submit">
+              <span>⚡</span>
+              <span>UPLOAD QUESTIONS</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- COMPLETED IMPORT SUMMARY CARD (Displayed upon successful upload) -->
+        <div class="bulk-summary-card" id="bulk-summary-card" style="display: none;">
+          <div class="bulk-summary-header">
+            <span class="bulk-summary-badge">✓ SUCCESS</span>
+            <h3 class="bulk-summary-title">IMPORT COMPLETE</h3>
+          </div>
+          <p class="bulk-summary-subtitle" id="bulk-summary-subtitle">
+            Questions have been successfully processed and saved.
+          </p>
+
+          <div class="bulk-summary-grid">
+            <div class="bulk-summary-item">
+              <span class="bulk-summary-lbl">QUESTIONS DETECTED</span>
+              <span class="bulk-summary-val" id="sum-val-detected">0</span>
+            </div>
+            <div class="bulk-summary-item" style="border-left: 3px solid var(--green, #00875a);">
+              <span class="bulk-summary-lbl">QUESTIONS ADDED</span>
+              <span class="bulk-summary-val" id="sum-val-added" style="color: var(--green, #00875a);">0</span>
+            </div>
+            <div class="bulk-summary-item" style="border-left: 3px solid #b58900;">
+              <span class="bulk-summary-lbl">DUPLICATES SKIPPED</span>
+              <span class="bulk-summary-val" id="sum-val-duplicates">0</span>
+            </div>
+            <div class="bulk-summary-item" style="border-left: 3px solid var(--red, #d32f2f);">
+              <span class="bulk-summary-lbl">INVALID ROWS</span>
+              <span class="bulk-summary-val" id="sum-val-invalid">0</span>
+            </div>
+          </div>
+
+          <div class="bulk-summary-actions" style="margin-top: 8px;">
+            <button type="button" class="btn-bulk-done" id="btn-bulk-done">
+              DONE
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Dedicated JavaScript -->
+  <script src="xlsx.full.min.js"></script>
+  <script src="trainer-home.js?v=2.0"></script>
+  <script src="create-assessment-modal.js"></script>
+  <script src="bulk-upload.js"></script>
+</body>
+</html>

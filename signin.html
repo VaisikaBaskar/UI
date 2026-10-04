@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — InterviewOS</title>
+  <meta name="description" content="Sign in to InterviewOS — the professional technical interview platform for serious engineers." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ── Reset ──────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design Tokens ──────────────────────────────────────────────── */
+    :root {
+      --black:      #0a0a0a;
+      --white:      #ffffff;
+      --off-white:  #fafafa;
+      --gray-100:   #f0f0f0;
+      --gray-200:   #dedede;
+      --gray-300:   #c4c4c4;
+      --gray-400:   #9a9a9a;
+      --gray-500:   #606060;
+      --gray-700:   #3a3a3a;
+      --yellow:     #f5d000;
+      --blue:       #2563eb;          /* blue — one selective accent */
+      --shadow-hard: 6px 6px 0px 0px #0a0a0a;
+      --shadow-sm:   3px 3px 0px 0px #0a0a0a;
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
+
+    /* Editorial Left Footer */
+    .editorial-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1.5px solid var(--gray-200);
+    }
+
+    .editorial-footer-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 5px;
+    }
+
+    .editorial-footer-tagline {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--gray-400);
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+    }
+
+    .editorial-footer-links {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .editorial-footer-link {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--gray-400);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.12s;
+    }
+
+    .editorial-footer-link:hover {
+      color: var(--black);
+    }
+
+    .editorial-footer-sep {
+      font-size: 10px;
+      color: var(--gray-300);
+      margin: 0 8px;
+      user-select: none;
+    }
+
+    html { height: 100%; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--white);
+      /* Subtle dot-grid across the entire page — same motif as reference site */
+      background-image: radial-gradient(rgba(0,0,0,0.07) 1px, transparent 1px);
+      background-size: 18px 18px;
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────────────── */
+    /* Exact visual pattern from reference site: white, sticky, 2px border-bottom */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--white);
+      border-bottom: 2px solid var(--black);
+      /* Mask the dot-grid behind header */
+      background-image: radial-gradient(rgba(0,0,0,0.07) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo — kept exactly as-is visually, just in the header */
+    .logo-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--black);
+      border: 2px solid var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .logo-lockup:hover .logo-icon {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--black);
+    }
+
+    .logo-icon svg {
+      width: 17px;
+      height: 17px;
+      stroke: var(--white);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .logo-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .logo-name {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--gray-400);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Header right: small blue badge + sign up link — reference style nav */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--blue);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border: 1.5px solid var(--black);
+      box-shadow: 2px 2px 0px var(--black);
+    }
+
+    .header-badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    .header-nav-link {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      text-decoration: none;
+      padding: 4px 0;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.12s, border-color 0.12s;
+    }
+
+    .header-nav-link:hover {
+      color: var(--black);
+      border-bottom-color: var(--yellow);
+    }
+
+    /* ── MAIN CONTENT AREA ──────────────────────────────────────────── */
+    .main-content {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: clamp(24px, 3.5vh, 44px) 32px clamp(24px, 3.5vh, 44px);
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 0;
+      align-items: stretch;
+      flex: 1;
+    }
+
+    /* ── LEFT COLUMN: Editorial heading ──────────────────────────────── */
+    .editorial-col {
+      padding-right: 56px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      border-right: 2px solid var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Yellow badge — rotated like the reference site's badge */
+    .editorial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border: 2px solid var(--black);
+      box-shadow: 3px 3px 0px var(--black);
+      margin-bottom: 20px;
+      transform: rotate(-1.5deg);
+      align-self: flex-start;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--black);
+      flex-shrink: 0;
+    }
+
+    /* Display heading — the big typographic moment */
+    .editorial-heading {
+      font-size: clamp(40px, 4.8vw, 64px);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      color: var(--black);
+      line-height: 0.95;
+      margin-bottom: 18px;
+    }
+
+    /* "back" on its own line, black-bg white-text chip — like reference's "from Scratch" */
+    .editorial-heading .heading-chip {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      padding: 2px 12px 4px;
+      transform: rotate(0.5deg);
+      margin-top: 4px;
+    }
+
+    /* Horizontal rule — editorial graphic element */
+    .editorial-rule {
+      width: 100%;
+      height: 2px;
+      background: var(--black);
+      margin: 18px 0;
+      border: none;
+    }
+
+    .editorial-sub {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--gray-500);
+      line-height: 1.6;
+      max-width: 390px;
+      margin-bottom: 24px;
+    }
+
+    /* Technical metadata — monospace small details like the reference */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 2px solid var(--black);
+      margin-top: auto;
+    }
+
+    .meta-item {
+      padding: 14px 18px;
+      border-right: 2px solid var(--black);
+      border-bottom: 2px solid var(--black);
+    }
+
+    .meta-item:nth-child(2),
+    .meta-item:nth-child(4) {
+      border-right: none;
+    }
+
+    .meta-item:nth-child(3),
+    .meta-item:nth-child(4) {
+      border-bottom: none;
+    }
+
+    .meta-value {
+      font-family: var(--font-mono);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .meta-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--gray-400);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    /* ── RIGHT COLUMN: Auth Form ─────────────────────────────────────── */
+    .form-col {
+      padding-left: 56px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Section label above the form — like reference section headers */
+    .form-section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .form-section-label-text {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+
+    .form-section-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+
+    .form-section-label-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gray-300);
+      letter-spacing: 0.05em;
+    }
+
+    /* Form heading — bold, uppercase, tight */
+    .form-heading {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      color: var(--black);
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    /* Yellow underline accent under the heading */
+    .form-heading-underline {
+      width: 36px;
+      height: 3px;
+      background: var(--yellow);
+      border: none;
+      margin-bottom: 8px;
+    }
+
+    .form-subheading {
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--gray-500);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* ── Form Fields ─────────────────────────────────────────────────── */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .form-input-wrap {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 46px;
+      padding: 0 16px;
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--black);
+      background: var(--white);
+      border: 2px solid var(--black);      /* crisp hard black border */
+      border-radius: 0;                    /* fully rectangular */
+      outline: none;
+      transition: box-shadow 0.12s ease, background 0.12s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-input::placeholder {
+      color: var(--gray-300);
+      font-weight: 400;
+    }
+
+    /* Focus: yellow accent shadow — controlled, editorial */
+    .form-input:focus {
+      background: var(--white);
+      box-shadow: 3px 3px 0px var(--yellow); /* yellow offset on focus */
+      border-color: var(--black);
+    }
+
+    .form-input:hover:not(:focus) {
+      background: var(--off-white);
+    }
+
+    .form-input.has-icon {
+      padding-right: 46px;
+    }
+
+    /* Eye icon */
+    .input-icon-right {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-300);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: color 0.12s ease;
+      user-select: none;
+    }
+
+    .input-icon-right:hover { color: var(--black); }
+
+    .input-icon-right svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    /* Forgot password row */
+    .form-meta-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+
+    .link-subtle {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+      transition: color 0.12s, border-color 0.12s;
+    }
+
+    .link-subtle:hover {
+      color: var(--black);
+      border-bottom-color: var(--yellow);
+    }
+
+    /* ── CTA Button ──────────────────────────────────────────────────── */
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      height: 48px;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      border-radius: 0;                    /* hard rectangle */
+      box-shadow: var(--shadow-hard);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.12s, color 0.12s, transform 0.12s, box-shadow 0.12s;
+      margin-top: 20px;
+    }
+
+    .btn-primary:hover {
+      background: var(--yellow);
+      color: var(--black);
+      transform: translate(3px, 3px);
+      box-shadow: 3px 3px 0px var(--black);
+    }
+
+    .btn-primary:active {
+      transform: translate(6px, 6px);
+      box-shadow: none;
+    }
+
+    .btn-primary svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    /* ── OR Divider ──────────────────────────────────────────────────── */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0 16px;
+    }
+
+    .auth-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+
+    .auth-divider-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    /* ── Social Auth Buttons ─────────────────────────────────────────── */
+    .social-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      height: 46px;
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      border-radius: 0;
+      box-shadow: 2px 2px 0px var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .btn-social:hover {
+      background: var(--off-white);
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px var(--black);
+    }
+
+    .btn-social:active {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+
+    .btn-social .social-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .auth-footer-row {
+      margin-top: 20px;
+    }
+
+    /* ── Footer row ────────────────────────────────────────────�    /* ── Bottom Statistics Grid Footer ───────────────────────────────── */
+    .site-footer {
+      border-top: 2px solid var(--black);
+      background: var(--white);
+      background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+      background-size: 18px 18px;
+      padding: 16px 24px;
+      flex-shrink: 0;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      max-width: 360px;
+      border: 2px solid var(--black);
+      background: var(--white);
+    }
+
+    .footer-stat-item {
+      padding: 9px 16px;
+      border-right: 1.5px solid var(--black);
+      border-bottom: 1.5px solid var(--black);
+    }
+
+    .footer-stat-item:nth-child(2),
+    .footer-stat-item:nth-child(4) {
+      border-right: none;
+    }
+
+    .footer-stat-item:nth-child(3),
+    .footer-stat-item:nth-child(4) {
+      border-bottom: none;
+    }
+
+    .footer-stat-value {
+      font-family: var(--font-mono);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .footer-stat-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--gray-400);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .footer-brand {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    .footer-tagline {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--gray-500);
+      letter-spacing: -0.01em;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .footer-link {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.12s, border-bottom 0.12s;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+    }
+
+    .footer-link:hover {
+      color: var(--black);
+      border-bottom-color: var(--yellow);
+    }
+
+    .footer-divider {
+      color: var(--gray-300);
+      font-size: 12px;
+      user-select: none;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        padding: 48px 24px 72px;
+        gap: 48px;
+      }
+      .editorial-col {
+        padding-right: 0;
+        border-right: none;
+        border-bottom: 2px solid var(--black);
+        padding-bottom: 48px;
+      }
+      .form-col {
+        padding-left: 0;
+      }
+      .editorial-heading {
+        font-size: clamp(40px, 10vw, 60px);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .header-badge { display: none; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .meta-item { border-right: none; }
+      .meta-item:nth-child(3) { border-bottom: 2px solid var(--black); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       HEADER — reference-style: sticky, 2px border-bottom
+  ════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+
+      <!-- Logo — kept exactly as existing design -->
+      <a class="logo-lockup" href="#" aria-label="InterviewOS home">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </div>
+        <div class="logo-text-block">
+          <span class="logo-name">InterviewOS</span>
+          <span class="logo-sub">v2.0 / Platform</span>
+        </div>
+      </a>
+
+      <!-- Header right — blue badge (blue accent) + Sign Up nav link -->
+      <div class="header-right">
+        <div class="header-badge" aria-hidden="true">
+          <span class="header-badge-dot"></span>
+          Technical Interview Platform
+        </div>
+        <a href="#signup-link" class="header-nav-link">Sign Up</a>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════
+       MAIN — editorial two-column grid
+  ════════════════════════════════════════════════ -->
+  <main>
+    <div class="main-content">
+
+      <!-- ─── LEFT: Editorial heading column ──────────────────────── -->
+      <div class="editorial-col" aria-hidden="true">
+
+        <!-- Yellow rotated badge — directly from reference site's pattern -->
+        <div class="editorial-badge">
+          <span class="badge-dot"></span>
+          Hiring Platform · v2.0
+        </div>
+
+        <!-- Giant display heading: "Welcome" on one line, "back." chip below -->
+        <h1 class="editorial-heading">
+          Welcome<br />
+          <span class="heading-chip">back.</span>
+        </h1>
+
+        <!-- Horizontal rule — graphic editorial element -->
+        <hr class="editorial-rule" />
+
+        <p class="editorial-sub">
+          Sign in to continue your interview journey on the platform built for engineering teams that take technical hiring seriously.
+        </p>
+
+        <!-- Left-side editorial footer -->
+        <div class="editorial-footer">
+          <div class="editorial-footer-brand">InterviewOS &copy; 2026</div>
+          <div class="editorial-footer-tagline">Built for better technical interviews</div>
+          <div class="editorial-footer-links">
+            <a href="#" class="editorial-footer-link">Privacy</a>
+            <span class="editorial-footer-sep">&middot;</span>
+            <a href="#" class="editorial-footer-link">Terms</a>
+            <span class="editorial-footer-sep">&middot;</span>
+            <a href="#" class="editorial-footer-link">Security</a>
+          </div>
+        </div>
+
+      </div><!-- /editorial-col -->
+
+
+      <!-- ─── RIGHT: Auth Form column ──────────────────────────────── -->
+      <div class="form-col">
+
+        <!-- Form heading -->
+        <h2 class="form-heading">Welcome back</h2>
+        <div class="form-heading-underline" aria-hidden="true"></div>
+        <p class="form-subheading">Sign in to continue your interview journey</p>
+
+        <!-- ── Form — all IDs, names, behavior preserved exactly ── -->
+        <form id="signin-form" action="#" onsubmit="return false;" novalidate>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="email-input">Email</label>
+            <div class="form-input-wrap">
+              <input
+                class="form-input"
+                type="email"
+                id="email-input"
+                name="email"
+                placeholder="Enter your email address"
+                autocomplete="email"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="password-input">Password</label>
+            <div class="form-input-wrap">
+              <input
+                class="form-input has-icon"
+                type="password"
+                id="password-input"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+              <span
+                class="input-icon-right"
+                id="toggle-password"
+                role="button"
+                aria-label="Toggle password visibility"
+                tabindex="0"
+              >
+                <svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </span>
+            </div>
+
+            <!-- Forgot password -->
+            <div class="form-meta-row">
+              <a href="#" class="link-subtle" id="forgot-password-link">Forgot password?</a>
+            </div>
+          </div>
+
+          <!-- Sign In CTA -->
+          <button type="submit" class="btn-primary" id="signin-btn">
+            Sign In
+            <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </button>
+
+          <!-- OR Divider -->
+          <div class="auth-divider" aria-hidden="true">
+            <div class="auth-divider-line"></div>
+            <span class="auth-divider-label">OR</span>
+            <div class="auth-divider-line"></div>
+          </div>
+
+          <!-- Social Auth Buttons -->
+          <div class="social-btns">
+            <button type="button" class="btn-social" id="btn-google-signin" aria-label="Continue with Google">
+              <!-- Google Icon -->
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span>CONTINUE WITH GOOGLE</span>
+            </button>
+
+            <button type="button" class="btn-social" id="btn-github-signin" aria-label="Continue with GitHub">
+              <!-- GitHub Icon -->
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" fill="var(--black)">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.254-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.547 1.376.203 2.394.1 2.646.64.698 1.028 1.591 1.028 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+              </svg>
+              <span>CONTINUE WITH GITHUB</span>
+            </button>
+          </div>
+
+        </form><!-- /signin-form -->
+
+        <!-- Sign Up row — boxed in the hard rectangular system -->
+        <div class="auth-footer-row">
+          <span class="auth-footer-text">Don't have an account?</span>
+          <a href="#" class="link-primary" id="signup-link">Sign Up</a>
+        </div>
+
+      </div><!-- /form-col -->
+
+    </div><!-- /main-content -->
+  </main>
+
+
+  
+
+</body>
+</html>

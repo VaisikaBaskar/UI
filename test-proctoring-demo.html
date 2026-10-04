@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aptitude Test — InterviewOS (Proctored)</title>
+  <meta name="description" content="InterviewOS proctored assessment with fullscreen violation detection and auto-submission flow." />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ==========================================================================
+       InterviewOS — Design System Tokens (identical to existing test-taking page)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black:         #0a0a0a;
+      --white:         #ffffff;
+      --off-white:     #fafafa;
+      --bg-page:       #fbfbfa;
+      --gray-50:       #fafaf9;
+      --gray-100:      #f2f2f0;
+      --gray-200:      #e2e2de;
+      --gray-300:      #c8c8c2;
+      --gray-400:      #9c9c94;
+      --gray-500:      #686860;
+      --gray-600:      #4e4e47;
+      --gray-700:      #363630;
+      --gray-800:      #22221e;
+      --gray-900:      #141412;
+
+      --yellow:        #ffe500;
+      --yellow-hover:  #ebd300;
+      --green:         #16a34a;
+      --alert-red-border: #FF2056;
+      --alert-red-bg:     #FFF0F3;
+
+      --shadow-hard:   6px 6px 0px 0px #0a0a0a;
+      --shadow-md:     4px 4px 0px 0px #0a0a0a;
+      --shadow-sm:     3px 3px 0px 0px #0a0a0a;
+      --shadow-xs:     2px 2px 0px 0px #0a0a0a;
+
+      --font-sans:     'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono:     'JetBrains Mono', monospace;
+    }
+
+    html { height: 100%; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--white);
+      background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+      background-size: 18px 18px;
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===========================
+       ASSESSMENT HEADER
+       =========================== */
+    .test-header {
+      background: var(--white);
+      border-bottom: 2px solid var(--black);
+      background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+      background-size: 18px 18px;
+      padding: 0 32px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--black);
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--black);
+      border: 2px solid var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-xs);
+      flex-shrink: 0;
+    }
+
+    .logo-icon svg {
+      width: 17px; height: 17px;
+      stroke: var(--white);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .logo-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .logo-name {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--gray-400);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .timer-badge {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--black);
+      border: 2px solid var(--black);
+      padding: 4px 14px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .proctoring-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      border: 1.5px solid var(--black);
+      padding: 3px 10px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .proctoring-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* ===========================
+       ASSESSMENT BODY AREA
+       =========================== */
+    .assessment-body {
+      flex: 1;
+      max-width: 860px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .question-card {
+      background: var(--white);
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-hard);
+      padding: 32px;
+    }
+
+    .question-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--yellow);
+      border: 1.5px solid var(--black);
+      padding: 2px 10px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow-xs);
+      margin-bottom: 20px;
+    }
+
+    .question-text {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.6;
+      color: var(--black);
+      margin-bottom: 24px;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mcq-option {
+      border: 2px solid var(--black);
+      background: var(--white);
+      box-shadow: var(--shadow-xs);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.1s ease;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    .mcq-option:hover {
+      background: var(--gray-50);
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mcq-option.is-selected {
+      background: var(--white);
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mcq-radio-box {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--black);
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    .mcq-option.is-selected .mcq-radio-box {
+      background: var(--black);
+    }
+
+    .mcq-key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      background: var(--black);
+      color: var(--white);
+      padding: 2px 6px;
+    }
+
+    /* Demo info panel */
+    .demo-panel {
+      border: 2px solid var(--black);
+      background: var(--gray-50);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .demo-panel-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 12px;
+    }
+
+    .demo-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+    }
+
+    .demo-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .demo-stat-label {
+      font-size: 10px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .demo-stat-value {
+      font-weight: 800;
+      color: var(--black);
+      font-size: 13px;
+    }
+
+    .demo-stat-value.danger {
+      color: var(--alert-red-border);
+    }
+
+    .demo-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      padding: 0 20px;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      margin-top: 16px;
+      transition: all 0.12s ease;
+    }
+
+    .demo-trigger-btn:hover {
+      background: var(--yellow);
+      color: var(--black);
+      transform: translate(1px, 1px);
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* ===========================
+       FULLSCREEN WARNING MODAL
+       =========================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(10, 10, 10, 0.72);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      display: none; /* hidden by default */
+    }
+
+    .modal-overlay.is-visible {
+      display: flex;
+    }
+
+    /* Fullscreen warning modal */
+    .warning-modal-card {
+      background: var(--white);
+      border: 2px solid var(--black);
+      box-shadow: 8px 8px 0px var(--black);
+      max-width: 520px;
+      width: 100%;
+      padding: 32px;
+    }
+
+    .modal-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .modal-badge-left {
+      display: inline-flex;
+      align-items: center;
+      background: var(--yellow);
+      border: 1.5px solid var(--black);
+      padding: 3px 10px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .modal-tag-right {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--gray-500);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .modal-heading {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    /* Yellow warning box inside the warning modal */
+    .modal-warning-box {
+      background: var(--yellow);
+      border: 2px solid var(--black);
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .modal-stats-box {
+      border: 1.5px solid var(--black);
+      background: var(--gray-50);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .modal-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .modal-stat-label {
+      font-size: 10px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .modal-stat-value {
+      font-weight: 900;
+      color: var(--black);
+      font-size: 13px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn-fullscreen-return {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      height: 48px;
+      padding: 0 24px;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-hard);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .btn-fullscreen-return:hover {
+      background: var(--yellow);
+      color: var(--black);
+      transform: translate(2px, 2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* FOOTER */
+    .site-footer {
+      border-top: 2px solid var(--black);
+      background: var(--white);
+      padding: 24px 32px;
+    }
+
+    .site-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .site-footer-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    .site-footer-tagline {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .site-footer-links {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .site-footer-link {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.12s;
+    }
+
+    .site-footer-link:hover { color: var(--black); }
+
+    .site-footer-sep {
+      font-size: 10px;
+      color: var(--gray-300);
+      margin: 0 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .test-header { padding: 0 16px; }
+      .header-meta { gap: 12px; }
+      .proctoring-status-pill { display: none; }
+      .assessment-body { margin: 20px auto; padding: 0 12px; }
+      .question-card { padding: 20px 16px; }
+      .demo-stats { grid-template-columns: 1fr 1fr; }
+      .modal-stats-box { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== ASSESSMENT HEADER ==================== -->
+  <header class="test-header">
+    <a class="logo-lockup" href="#" aria-label="InterviewOS Home">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="4 17 10 11 4 5"></polyline>
+          <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
+      </div>
+      <div class="logo-text-block">
+        <span class="logo-name">InterviewOS</span>
+        <span class="logo-sub">Assessment 03 / Aptitude</span>
+      </div>
+    </a>
+
+    <div class="header-meta">
+      <div class="proctoring-status-pill">
+        <span class="proctoring-dot" id="proctoring-indicator-dot"></span>
+        <span id="proctoring-status-text">PROCTORING: ACTIVE</span>
+      </div>
+      <div class="timer-badge" id="timer-display">00:19:45</div>
+    </div>
+  </header>
+
+  <!-- ==================== ASSESSMENT BODY ==================== -->
+  <div class="assessment-body">
+
+    <!-- DEMO PROCTORING STATUS PANEL -->
+    <div class="demo-panel">
+      <div class="demo-panel-title">⚙ Proctoring System Status — Live Demo Panel</div>
+      <div class="demo-stats">
+        <div class="demo-stat">
+          <span class="demo-stat-label">Violations</span>
+          <span class="demo-stat-value" id="panel-violation-count">0 / 3</span>
+        </div>
+        <div class="demo-stat">
+          <span class="demo-stat-label">Max Allowed</span>
+          <span class="demo-stat-value">3</span>
+        </div>
+        <div class="demo-stat">
+          <span class="demo-stat-label">Warnings Left</span>
+          <span class="demo-stat-value" id="panel-warnings-left">3</span>
+        </div>
+        <div class="demo-stat">
+          <span class="demo-stat-label">Answers Saved</span>
+          <span class="demo-stat-value">7 / 20</span>
+        </div>
+        <div class="demo-stat">
+          <span class="demo-stat-label">Status</span>
+          <span class="demo-stat-value" id="panel-status">MONITORING</span>
+        </div>
+      </div>
+      <div style="margin-top: 16px; font-family: var(--font-mono); font-size: 11px; color: var(--gray-600); line-height: 1.6;">
+        <strong>How this demo works:</strong><br>
+        • Exit fullscreen (press Esc) to trigger a violation, OR click the button below.<br>
+        • The warning modal appears for violations 1 and 2.<br>
+        • On violation 3 (maximum), you are automatically redirected to the auto-submission page.
+      </div>
+      <button
+        type="button"
+        class="demo-trigger-btn"
+        id="btn-simulate-violation"
+        onclick="simulateFullscreenViolation()"
+      >
+        SIMULATE FULLSCREEN EXIT (DEMO)
+      </button>
+    </div>
+
+    <!-- ACTIVE QUESTION CARD -->
+    <div class="question-card" id="assessment-question-card">
+      <div class="question-badge">QUESTION 04 OF 20</div>
+
+      <div class="question-text">
+        Two trains running in opposite directions cross a man standing on the platform in 27 seconds and 17 seconds respectively. If they cross each other in 23 seconds, what are their speeds in the ratio?
+      </div>
+
+      <div class="mcq-options" role="radiogroup" aria-label="Answer Choices">
+        <div class="mcq-option" role="radio" aria-checked="false" tabindex="0">
+          <div class="mcq-radio-box"></div>
+          <span class="mcq-key">A</span>
+          <span>1 : 3</span>
+        </div>
+        <div class="mcq-option" role="radio" aria-checked="false" tabindex="0">
+          <div class="mcq-radio-box"></div>
+          <span class="mcq-key">B</span>
+          <span>3 : 2</span>
+        </div>
+        <div class="mcq-option" role="radio" aria-checked="false" tabindex="0">
+          <div class="mcq-radio-box"></div>
+          <span class="mcq-key">C</span>
+          <span>3 : 4</span>
+        </div>
+        <div class="mcq-option" role="radio" aria-checked="false" tabindex="0">
+          <div class="mcq-radio-box"></div>
+          <span class="mcq-key">D</span>
+          <span>None of the above</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div>
+        <span class="site-footer-brand">INTERVIEWOS &copy; 2026</span>
+        <span class="site-footer-tagline">Built for better technical interviews</span>
+      </div>
+      <nav class="site-footer-links" aria-label="Site legal links">
+        <a href="#" class="site-footer-link">Privacy</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Terms</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Security</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ==================== FULLSCREEN WARNING MODAL ==================== -->
+  <!--
+    This overlay is HIDDEN by default (display: none).
+    It is shown by the proctoring logic when a fullscreen violation occurs.
+    It is NOT a permanent UI element — it appears only during a violation.
+  -->
+  <div class="modal-overlay" id="fullscreen-warning-overlay" role="alertdialog" aria-modal="true" aria-labelledby="warning-modal-heading">
+    <div class="warning-modal-card">
+
+      <!-- Status row: Yellow badge + proctoring label -->
+      <div class="modal-header-row">
+        <span class="modal-badge-left" id="warning-badge-count">WARNING 1 / 3</span>
+        <span class="modal-tag-right">PROCTORING VIOLATION</span>
+      </div>
+
+      <!-- Main heading -->
+      <h2 class="modal-heading" id="warning-modal-heading">FULLSCREEN MODE REQUIRED</h2>
+
+      <!-- Yellow warning message box -->
+      <div class="modal-warning-box" id="warning-message-box">
+        You exited fullscreen. Please return to fullscreen to continue.
+      </div>
+
+      <!-- Stats: current violations / warnings left -->
+      <div class="modal-stats-box">
+        <div class="modal-stat">
+          <span class="modal-stat-label">Violations</span>
+          <span class="modal-stat-value" id="modal-violation-count">1 / 3</span>
+        </div>
+        <div class="modal-stat">
+          <span class="modal-stat-label">Warnings Remaining</span>
+          <span class="modal-stat-value" id="modal-warnings-left">2 warnings left</span>
+        </div>
+        <div class="modal-stat">
+          <span class="modal-stat-label">Auto-Submit At</span>
+          <span class="modal-stat-value">3 violations</span>
+        </div>
+      </div>
+
+      <!-- Action button -->
+      <div class="modal-actions">
+        <button
+          type="button"
+          class="btn-fullscreen-return"
+          id="btn-reenter-fullscreen"
+          onclick="handleReturnToFullscreen()"
+        >
+          RE-ENTER FULLSCREEN &amp; CONTINUE
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== PROCTORING FLOW SCRIPT ==================== -->
+  <script>
+    /* =====================================================================
+       InterviewOS — Proctoring Violation & Auto-Submission Flow
+       Isolated scope: does not modify any existing pages or global logic.
+       ===================================================================== */
+
+    (function() {
+      'use strict';
+
+      /* ---- Configuration ---- */
+      var MAX_VIOLATIONS  = 3;
+      var ANSWERS_SAVED   = 7;       // Simulated answered question count
+      var TOTAL_QUESTIONS = 20;      // Total assessment questions
+      /* Navigation destination — reuses the existing auto-submission page */
+      var AUTO_SUBMIT_URL = 'auto-submission.html';
+
+      /* ---- State ---- */
+      var violationCount   = 0;
+      var isWarningVisible = false;
+      var isAutoSubmitted  = false;
+      var inFullscreen     = false;
+
+      /* ---- DOM References ---- */
+      var overlay         = document.getElementById('fullscreen-warning-overlay');
+      var badgeCount      = document.getElementById('warning-badge-count');
+      var warningMsg      = document.getElementById('warning-message-box');
+      var modalViolation  = document.getElementById('modal-violation-count');
+      var modalWarnings   = document.getElementById('modal-warnings-left');
+      var panelViolation  = document.getElementById('panel-violation-count');
+      var panelWarnings   = document.getElementById('panel-warnings-left');
+      var panelStatus     = document.getElementById('panel-status');
+      var procDot         = document.getElementById('proctoring-indicator-dot');
+      var procText        = document.getElementById('proctoring-status-text');
+      var simBtn          = document.getElementById('btn-simulate-violation');
+
+      /* ---- Show Warning Modal ---- */
+      function showWarningModal() {
+        if (isAutoSubmitted) return;
+
+        isWarningVisible = true;
+
+        /* Update badge */
+        badgeCount.textContent = 'WARNING ' + violationCount + ' / ' + MAX_VIOLATIONS;
+
+        /* Update stats inside modal */
+        modalViolation.textContent = violationCount + ' / ' + MAX_VIOLATIONS;
+        var warningsLeft = MAX_VIOLATIONS - violationCount;
+        modalWarnings.textContent = (warningsLeft > 0 ? warningsLeft : 0) + ' warning' + (warningsLeft !== 1 ? 's' : '') + ' left';
+
+        /* Update warning message dynamically */
+        if (violationCount >= MAX_VIOLATIONS - 1) {
+          warningMsg.textContent = 'Final warning! If you exit fullscreen again, your test will be automatically submitted and locked.';
+        } else {
+          warningMsg.textContent = 'You exited fullscreen. You have ' + (MAX_VIOLATIONS - violationCount) + ' warning(s) remaining before auto-submission.';
+        }
+
+        /* Show modal overlay */
+        overlay.classList.add('is-visible');
+
+        /* Update demo panel */
+        updateDemoPanel();
+      }
+
+      /* ---- Hide Warning Modal & Return to Assessment ---- */
+      function hideWarningModal() {
+        isWarningVisible = false;
+        overlay.classList.remove('is-visible');
+      }
+
+      /* ---- Handle Auto-Submission ---- */
+      function triggerAutoSubmission() {
+        isAutoSubmitted = true;
+        hideWarningModal();
+
+        /* Update proctoring indicator to show terminated state */
+        if (procDot) {
+          procDot.style.background = '#dc2626';
+        }
+        if (procText) {
+          procText.textContent = 'PROCTORING: TERMINATED';
+        }
+        if (panelStatus) {
+          panelStatus.textContent = 'AUTO-SUBMITTED';
+          panelStatus.classList.add('danger');
+        }
+
+        /* Store violation data in sessionStorage for the auto-submission page to read */
+        try {
+          sessionStorage.setItem('ios_violation_count', violationCount);
+          sessionStorage.setItem('ios_max_violations', MAX_VIOLATIONS);
+          sessionStorage.setItem('ios_answers_saved', ANSWERS_SAVED);
+          sessionStorage.setItem('ios_total_questions', TOTAL_QUESTIONS);
+          sessionStorage.setItem('ios_submission_reason', 'PROCTORING TERMINATION (FULLSCREEN EXITED ' + violationCount + 'X)');
+        } catch (e) {
+          /* sessionStorage not available — values will be defaults on the destination page */
+        }
+
+        /* Navigate to the existing auto-submission page */
+        window.location.href = AUTO_SUBMIT_URL;
+      }
+
+      /* ---- Update Demo Panel Stats ---- */
+      function updateDemoPanel() {
+        if (panelViolation) {
+          panelViolation.textContent = violationCount + ' / ' + MAX_VIOLATIONS;
+        }
+        if (panelWarnings) {
+          panelWarnings.textContent = Math.max(0, MAX_VIOLATIONS - violationCount);
+        }
+        if (panelStatus) {
+          if (isAutoSubmitted) {
+            panelStatus.textContent = 'AUTO-SUBMITTED';
+            panelStatus.style.color = '#B91C1C';
+          } else if (isWarningVisible) {
+            panelStatus.textContent = 'VIOLATION DETECTED';
+            panelStatus.style.color = '#B91C1C';
+          } else {
+            panelStatus.textContent = 'MONITORING';
+            panelStatus.style.color = '';
+          }
+        }
+      }
+
+      /* ---- Core: Handle a Fullscreen Violation ---- */
+      function handleViolation() {
+        if (isAutoSubmitted) return;
+        if (isWarningVisible) return; /* debounce: don't double-count */
+
+        violationCount++;
+
+        if (violationCount >= MAX_VIOLATIONS) {
+          /* Maximum reached → auto-submit immediately */
+          triggerAutoSubmission();
+        } else {
+          /* Show the warning modal */
+          showWarningModal();
+        }
+      }
+
+      /* ---- Listen for Fullscreen Change Events ---- */
+      function onFullscreenChange() {
+        var fsEl = (
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement
+        );
+
+        var nowInFullscreen = !!fsEl;
+
+        /* Only trigger a violation when the user actually exits fullscreen */
+        if (inFullscreen && !nowInFullscreen && !isWarningVisible && !isAutoSubmitted) {
+          handleViolation();
+        }
+
+        inFullscreen = nowInFullscreen;
+      }
+
+      document.addEventListener('fullscreenchange', onFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+      document.addEventListener('mozfullscreenchange', onFullscreenChange);
+      document.addEventListener('MSFullscreenChange', onFullscreenChange);
+
+      /* ---- Public: Return to Fullscreen from Warning Modal ---- */
+      window.handleReturnToFullscreen = function() {
+        /* Request fullscreen */
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen()
+            .then(function() {
+              inFullscreen = true;
+              hideWarningModal();
+            })
+            .catch(function() {
+              /* Fullscreen denied (e.g. browser policy) — still dismiss modal */
+              hideWarningModal();
+            });
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen();
+          inFullscreen = true;
+          hideWarningModal();
+        } else {
+          hideWarningModal();
+        }
+      };
+
+      /* ---- Public: Simulate violation for demo purposes ---- */
+      window.simulateFullscreenViolation = function() {
+        if (isAutoSubmitted) return;
+        handleViolation();
+      };
+
+      /* ---- MCQ option click handling (reuses same pattern as test-taking wireframe) ---- */
+      function initMCQOptions() {
+        var options = document.querySelectorAll('.mcq-option');
+        options.forEach(function(opt) {
+          opt.addEventListener('click', function() {
+            var group = this.closest('.mcq-options');
+            if (group) {
+              group.querySelectorAll('.mcq-option').forEach(function(o) {
+                o.classList.remove('is-selected');
+                o.setAttribute('aria-checked', 'false');
+              });
+            }
+            this.classList.add('is-selected');
+            this.setAttribute('aria-checked', 'true');
+            ANSWERS_SAVED = Math.min(ANSWERS_SAVED + 1, TOTAL_QUESTIONS);
+          });
+
+          opt.addEventListener('keydown', function(e) {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              this.click();
+            }
+          });
+        });
+      }
+
+      /* ---- Simple Timer Countdown ---- */
+      function initTimer() {
+        var display = document.getElementById('timer-display');
+        if (!display) return;
+        var seconds = 19 * 60 + 45;
+        setInterval(function() {
+          if (isAutoSubmitted) return;
+          seconds = Math.max(0, seconds - 1);
+          var m = Math.floor(seconds / 60);
+          var s = seconds % 60;
+          display.textContent = '00:' +
+            (m < 10 ? '0' : '') + m + ':' +
+            (s < 10 ? '0' : '') + s;
+          if (seconds === 0 && !isAutoSubmitted) {
+            isAutoSubmitted = true;
+            window.location.href = AUTO_SUBMIT_URL;
+          }
+        }, 1000);
+      }
+
+      /* ---- Init ---- */
+      document.addEventListener('DOMContentLoaded', function() {
+        initMCQOptions();
+        initTimer();
+        updateDemoPanel();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

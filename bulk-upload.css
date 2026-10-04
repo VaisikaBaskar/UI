@@ -1,0 +1,679 @@
+/**
+ * InterviewOS — Bulk MCQ Upload Neo-Brutalist Stylesheet
+ * Strict visual parity with InterviewOS design system
+ */
+
+/* ==========================================================================
+   ENTRY BUTTONS
+   ========================================================================== */
+.btn-bulk-upload {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 20px;
+  background: var(--white, #ffffff);
+  color: var(--black, #000000);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid var(--black, #000000);
+  box-shadow: var(--shadow-sm, 3px 3px 0 #000000);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.btn-bulk-upload:hover {
+  background: var(--yellow, #ffe600);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-md, 5px 5px 0 #000000);
+}
+
+.btn-bulk-upload:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 #000000;
+}
+
+/* Compact version for Question Bank Detail toolbar */
+.btn-bulk-upload-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  background: var(--white, #ffffff);
+  color: var(--black, #000000);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 2px solid var(--black, #000000);
+  box-shadow: 2px 2px 0 #000000;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+
+.btn-bulk-upload-sm:hover {
+  background: var(--yellow, #ffe600);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #000000;
+}
+
+/* ==========================================================================
+   MODAL OVERLAY & CONTAINER
+   ========================================================================== */
+.bulk-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(2px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.bulk-modal-overlay.is-visible {
+  display: flex;
+  opacity: 1;
+}
+
+.bulk-modal-container {
+  background: var(--white, #ffffff);
+  border: 3px solid var(--black, #000000);
+  box-shadow: 8px 8px 0px var(--black, #000000);
+  width: 100%;
+  max-width: 720px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  animation: bulkModalPop 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bulkModalPop {
+  from {
+    transform: scale(0.97) translateY(8px);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   MODAL HEADER
+   ========================================================================== */
+.bulk-modal-header {
+  background: var(--white, #ffffff);
+  border-bottom: 2px solid var(--black, #000000);
+  padding: 20px 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bulk-modal-kicker {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--gray-600, #555555);
+  margin-bottom: 4px;
+}
+
+.bulk-modal-title {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--black, #000000);
+  margin: 0 0 6px 0;
+  line-height: 1.15;
+}
+
+.bulk-modal-desc {
+  font-size: 13px;
+  color: var(--gray-600, #555555);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.bulk-modal-close-btn {
+  background: var(--white, #ffffff);
+  border: 2px solid var(--black, #000000);
+  box-shadow: 2px 2px 0 var(--black, #000000);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.1s ease;
+}
+
+.bulk-modal-close-btn:hover {
+  background: var(--red, #ff3b30);
+  color: var(--white, #ffffff);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--black, #000000);
+}
+
+/* ==========================================================================
+   MODAL BODY & STEP CARDS
+   ========================================================================== */
+.bulk-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+  background: var(--bg-page, #f9f9fb);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.bulk-step-card {
+  background: var(--white, #ffffff);
+  border: 2px solid var(--black, #000000);
+  box-shadow: 3px 3px 0 var(--black, #000000);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bulk-step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.bulk-step-pill {
+  background: var(--yellow, #ffe600);
+  color: var(--black, #000000);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border: 1.5px solid var(--black, #000000);
+}
+
+.bulk-step-title {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--black, #000000);
+}
+
+.bulk-step-desc {
+  font-size: 12.5px;
+  color: var(--gray-600, #555555);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   STEP 01: DOWNLOAD BUTTON
+   ========================================================================== */
+.btn-bulk-download-template {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 18px;
+  background: var(--white, #ffffff);
+  color: var(--black, #000000);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 2px solid var(--black, #000000);
+  box-shadow: 2px 2px 0 var(--black, #000000);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.btn-bulk-download-template:hover {
+  background: var(--yellow, #ffe600);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--black, #000000);
+}
+
+/* ==========================================================================
+   STEP 02: SELECTOR
+   ========================================================================== */
+.bulk-field-label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--black, #000000);
+  display: block;
+}
+
+.bulk-bank-select {
+  width: 100%;
+  height: 42px;
+  background: var(--white, #ffffff);
+  border: 2px solid var(--black, #000000);
+  box-shadow: 2px 2px 0 var(--black, #000000);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 12px;
+  color: var(--black, #000000);
+  cursor: pointer;
+  outline: none;
+}
+
+.bulk-bank-select:focus {
+  border-color: var(--black, #000000);
+  background: #fffdf0;
+}
+
+.bulk-bank-preview {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: var(--gray-700, #444444);
+  background: #f0f0f5;
+  border-left: 3px solid var(--black, #000000);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bulk-bank-preview-badge {
+  font-weight: 900;
+  background: var(--yellow, #ffe600);
+  color: var(--black, #000000);
+  padding: 1px 6px;
+  border: 1px solid var(--black, #000000);
+}
+
+/* ==========================================================================
+   STEP 03: DROPZONE & FILE SELECTION
+   ========================================================================== */
+.bulk-dropzone {
+  border: 2px dashed var(--black, #000000);
+  background: var(--white, #ffffff);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.bulk-dropzone.is-dragover {
+  background: #fffbe6;
+  border-color: var(--black, #000000);
+  border-style: solid;
+  transform: scale(1.01);
+}
+
+.bulk-dropzone-icon {
+  color: var(--black, #000000);
+}
+
+.btn-bulk-choose {
+  height: 38px;
+  padding: 0 20px;
+  background: var(--yellow, #ffe600);
+  color: var(--black, #000000);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11.5px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid var(--black, #000000);
+  box-shadow: 2px 2px 0 var(--black, #000000);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.btn-bulk-choose:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--black, #000000);
+}
+
+.bulk-dropzone-hint {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: var(--gray-600, #666666);
+}
+
+/* File Selected Info Box */
+.bulk-file-info-box {
+  background: var(--white, #ffffff);
+  border: 2px solid var(--black, #000000);
+  box-shadow: 2px 2px 0 var(--black, #000000);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bulk-file-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.bulk-file-name-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.bulk-file-badge {
+  background: var(--black, #000000);
+  color: var(--yellow, #ffe600);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  font-weight: 900;
+  padding: 2px 5px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.bulk-file-name {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--black, #000000);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bulk-file-size {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: var(--gray-600, #666666);
+  flex-shrink: 0;
+}
+
+.bulk-detected-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bulk-detected-badge {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--black, #000000);
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  padding: 3px 8px;
+}
+
+.btn-bulk-remove-file {
+  background: none;
+  border: 1px solid var(--gray-400, #cccccc);
+  padding: 2px 8px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  color: var(--gray-700, #555555);
+}
+
+.btn-bulk-remove-file:hover {
+  background: var(--red, #ff3b30);
+  color: var(--white, #ffffff);
+  border-color: var(--black, #000000);
+}
+
+/* ==========================================================================
+   VALIDATION ERROR PANEL
+   ========================================================================== */
+.bulk-error-card {
+  background: #fff5f5;
+  border: 2px solid var(--red, #d32f2f);
+  box-shadow: 3px 3px 0 var(--red, #d32f2f);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bulk-error-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bulk-error-icon {
+  font-size: 16px;
+}
+
+.bulk-error-title {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--red, #d32f2f);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bulk-error-counts {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--black, #000000);
+  background: rgba(211, 47, 47, 0.08);
+  padding: 6px 10px;
+  border-left: 3px solid var(--red, #d32f2f);
+}
+
+.bulk-error-list-wrap {
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #ffd0d0;
+  background: var(--white, #ffffff);
+  padding: 10px 14px;
+}
+
+.bulk-error-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bulk-error-list li {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: var(--black, #000000);
+  line-height: 1.4;
+}
+
+.bulk-error-list strong {
+  color: var(--red, #d32f2f);
+}
+
+.bulk-error-footer {
+  font-size: 12px;
+  color: var(--gray-700, #444444);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   PRIMARY UPLOAD ACTION
+   ========================================================================== */
+.btn-bulk-upload-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 44px;
+  background: var(--yellow, #ffe600);
+  color: var(--black, #000000);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid var(--black, #000000);
+  box-shadow: 3px 3px 0 var(--black, #000000);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.btn-bulk-upload-submit:hover {
+  background: #ffea2e;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--black, #000000);
+}
+
+.btn-bulk-upload-submit:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--black, #000000);
+}
+
+.btn-bulk-upload-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 2px 2px 0 var(--black, #000000);
+}
+
+/* ==========================================================================
+   IMPORT COMPLETE SUMMARY CARD
+   ========================================================================== */
+.bulk-summary-card {
+  background: #f7fff7;
+  border: 3px solid var(--black, #000000);
+  box-shadow: 6px 6px 0 var(--black, #000000);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: bulkModalPop 0.2s ease forwards;
+}
+
+.bulk-summary-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bulk-summary-badge {
+  background: var(--green, #00875a);
+  color: var(--white, #ffffff);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 8px;
+  border: 1px solid var(--black, #000000);
+}
+
+.bulk-summary-title {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--black, #000000);
+  margin: 0;
+}
+
+.bulk-summary-subtitle {
+  font-size: 13px;
+  color: var(--gray-700, #444444);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.bulk-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.bulk-summary-item {
+  background: var(--white, #ffffff);
+  border: 2px solid var(--black, #000000);
+  box-shadow: 2px 2px 0 var(--black, #000000);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bulk-summary-lbl {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--gray-600, #666666);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bulk-summary-val {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--black, #000000);
+}
+
+.btn-bulk-done {
+  height: 42px;
+  background: var(--black, #000000);
+  color: var(--white, #ffffff);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid var(--black, #000000);
+  box-shadow: 3px 3px 0 var(--black, #000000);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  width: 100%;
+}
+
+.btn-bulk-done:hover {
+  background: var(--yellow, #ffe600);
+  color: var(--black, #000000);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--black, #000000);
+}

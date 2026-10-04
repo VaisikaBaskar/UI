@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assessment Auto-Submitted — InterviewOS</title>
+  <meta
+    name="description"
+    content="InterviewOS proctored assessment auto-submitted confirmation due to fullscreen proctoring violations."
+  />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Dedicated Stylesheet (Exact styling and design tokens from Assessment Submitted page) -->
+  <link rel="stylesheet" href="assessment-auto-submitted.css" />
+</head>
+<body class="auto-submit-root auto-submission-page">
+
+  <!-- Sticky Site Header (Identical to Assessment Submitted Page) -->
+  <header class="site-header auto-submit-header">
+    <div class="header-inner">
+      <a class="logo-lockup" href="assessment-overview-wireframe.html" aria-label="InterviewOS home">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </div>
+        <div class="logo-text-block">
+          <span class="logo-name">InterviewOS</span>
+          <span class="logo-sub">Assessment 03 / Section 01</span>
+        </div>
+      </a>
+
+      <!-- 6. TOP RIGHT LABEL: PROCTORING VIOLATION in small uppercase technical style -->
+      <div class="header-right-tag" id="header-right-label">
+        PROCTORING VIOLATION &middot; SESSION CLOSED &middot; CANDIDATE: STU-8492
+      </div>
+    </div>
+  </header>
+
+  <!-- Centered Confirmation Main Content (Identical layout to Assessment Submitted page) -->
+  <main>
+    <div class="confirmation-card" role="region" aria-labelledby="auto-submit-heading">
+
+      <!-- 1. Yellow square success-style visual at the top (Identical to Assessment Submitted) -->
+      <div class="success-icon-box" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+
+      <!-- 5. AUTO-SUBMITTED STATUS BADGE (InterviewOS Yellow Theme) -->
+      <div class="status-badge" style="background: var(--yellow);">
+        <span class="status-badge-dot" style="background: var(--black);"></span>
+        <span>AUTO-SUBMITTED</span>
+      </div>
+
+      <!-- 2. MAIN TITLE: TEST AUTO-SUBMITTED (Same font, size, weight, black color) -->
+      <h1 class="confirm-heading" id="auto-submit-heading">
+        TEST AUTO-SUBMITTED
+      </h1>
+
+      <!-- 3. SUBTITLE: PROCTORING VIOLATION (Same typography, neutral text color, no red) -->
+      <p class="confirm-sub">
+        PROCTORING VIOLATION
+      </p>
+
+      <!-- 4. SINGLE ALERT BOX (Pale red background, thin dark red border, black offset shadow) -->
+      <div class="alert-box" role="alert">
+        <div class="alert-headline">
+          You exited fullscreen <span id="alert-violations-count">3</span> times.
+        </div>
+        <div class="alert-subtext">
+          Your test has been automatically submitted due to repeated fullscreen violations.
+        </div>
+      </div>
+
+      <!-- 7. ASSESSMENT DETAILS BOX (Exact 5-row structure from Assessment Submitted page) -->
+      <div class="summary-matrix" aria-label="Auto-Submission Details">
+        <div class="summary-row">
+          <span class="summary-label">ASSESSMENT:</span>
+          <span class="summary-val" id="summary-val-assessment">ASSESSMENT 03 &middot; SECTION: APTITUDE</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">SUBMISSION TIMESTAMP:</span>
+          <span class="summary-val" id="summary-val-timestamp">OCTOBER 12, 2026 AT 10:28:45 AM</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">ANSWERED QUESTIONS:</span>
+          <span class="summary-val" id="summary-val-answered" style="color: var(--green);">19 OF 20 QUESTIONS</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">UNANSWERED QUESTIONS:</span>
+          <span class="summary-val" id="summary-val-unanswered" style="color: var(--gray-600);">1 QUESTION</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">TIME CONSUMED:</span>
+          <span class="summary-val" id="summary-val-time">18M 45S (OF 20M ALLOCATED)</span>
+        </div>
+      </div>
+
+      <!-- 8. BUTTONS (Exact buttons, dimensions, borders, shadows & hover from Assessment Submitted) -->
+      <div class="cta-stack">
+        <!-- Primary button -->
+        <a href="assessment-overview-wireframe.html" class="btn-primary" id="btn-back-overview">
+          <span>BACK TO ASSESSMENT OVERVIEW</span>
+          <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; stroke-width: 2.5; fill: none;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+
+        <!-- Secondary button -->
+        <a href="student-dashboard-wireframe.html" class="btn-secondary" id="btn-back-dashboard">
+          <span>RETURN TO DASHBOARD</span>
+        </a>
+
+        <!-- Preserved View Submission Action with existing route -->
+        <a href="submission-confirmation-wireframe.html" class="btn-secondary" id="btn-view-submission">
+          <span>VIEW SUBMISSION &rarr;</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Production Footer (Identical to Assessment Submitted Page) -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-left">
+        <span class="site-footer-brand">INTERVIEWOS &copy; 2026</span>
+        <span class="site-footer-tagline">Built for better technical interviews</span>
+      </div>
+      <nav class="site-footer-links" aria-label="Site legal links">
+        <a href="#" class="site-footer-link">Privacy</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Terms</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Security</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Dynamic Assessment State Reader (Reads dynamic test state from session if available) -->
+  <script>
+    (function() {
+      try {
+        var answered = sessionStorage.getItem('ios_answers_saved');
+        var total = sessionStorage.getItem('ios_total_questions');
+        var timestamp = sessionStorage.getItem('ios_submission_timestamp');
+        var timeConsumed = sessionStorage.getItem('ios_time_consumed');
+        var violations = sessionStorage.getItem('ios_violation_count');
+
+        if (timestamp && document.getElementById('summary-val-timestamp')) {
+          document.getElementById('summary-val-timestamp').textContent = timestamp;
+        }
+
+        if (answered !== null && total !== null) {
+          var ansNum = parseInt(answered, 10);
+          var totNum = parseInt(total, 10);
+          var unansNum = Math.max(0, totNum - ansNum);
+
+          if (document.getElementById('summary-val-answered')) {
+            document.getElementById('summary-val-answered').textContent = ansNum + ' OF ' + totNum + ' QUESTIONS';
+          }
+          if (document.getElementById('summary-val-unanswered')) {
+            document.getElementById('summary-val-unanswered').textContent = unansNum + (unansNum === 1 ? ' QUESTION' : ' QUESTIONS');
+          }
+        }
+
+        if (timeConsumed && document.getElementById('summary-val-time')) {
+          document.getElementById('summary-val-time').textContent = timeConsumed;
+        }
+
+        if (violations && document.getElementById('alert-violations-count')) {
+          document.getElementById('alert-violations-count').textContent = violations;
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+</html>

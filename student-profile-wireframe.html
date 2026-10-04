@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Profile — InterviewOS</title>
+  <meta name="description" content="Candidate Profile for InterviewOS technical evaluation platform. View and update candidate credentials, technical background, and evaluation preferences." />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ==========================================================================
+       InterviewOS — Design System Tokens
+       Visual Language: Neubrutalist / Technical Editorial / Developer-Focused
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black:         #0a0a0a;
+      --white:         #ffffff;
+      --off-white:     #fafafa;
+      --bg-page:       #fbfbfa;
+      --gray-50:       #fafaf9;
+      --gray-100:      #f2f2f0;
+      --gray-200:      #e2e2de;
+      --gray-300:      #c8c8c2;
+      --gray-400:      #9c9c94;
+      --gray-500:      #686860;
+      --gray-600:      #4e4e47;
+      --gray-700:      #363630;
+      --gray-800:      #22221e;
+      --gray-900:      #141412;
+
+      --yellow:        #ffe500;
+      --yellow-hover:  #ebd300;
+      --blue:          #2563eb;
+      --green:         #16a34a;
+
+      --shadow-hard:   6px 6px 0px 0px #0a0a0a;
+      --shadow-md:     4px 4px 0px 0px #0a0a0a;
+      --shadow-sm:     3px 3px 0px 0px #0a0a0a;
+      --shadow-xs:     2px 2px 0px 0px #0a0a0a;
+
+      --font-sans:     'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono:     'JetBrains Mono', monospace;
+    }
+
+    html {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--white);
+      background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+      background-size: 18px 18px;
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* HEADER */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--white);
+      border-bottom: 2px solid var(--black);
+      background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--black);
+      border: 2px solid var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .logo-icon svg {
+      width: 17px;
+      height: 17px;
+      stroke: var(--white);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .logo-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .logo-name {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--gray-400);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-back-link {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1.5px solid var(--black);
+      background: var(--white);
+      box-shadow: var(--shadow-xs);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.12s ease, transform 0.12s ease;
+    }
+
+    .header-back-link:hover {
+      background: var(--yellow);
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .user-avatar-sq {
+      width: 28px;
+      height: 28px;
+      background: var(--black);
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 11px;
+      border: 1.5px solid var(--black);
+      box-shadow: 2px 2px 0px var(--black);
+    }
+
+    .btn-logout {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0 12px;
+      border: 2px solid var(--black);
+      box-shadow: 2px 2px 0px var(--black);
+      cursor: pointer;
+      transition: background 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .btn-logout:hover {
+      background: var(--yellow);
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px var(--black);
+    }
+
+    .btn-logout svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      fill: none;
+    }
+
+    /* MAIN CONTAINER */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 32px 60px;
+      width: 100%;
+    }
+
+    /* EDITORIAL BADGE */
+    .editorial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      border: 1.5px solid var(--black);
+      background: var(--white);
+      padding: 4px 10px;
+      box-shadow: var(--shadow-xs);
+      margin-bottom: 16px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--yellow);
+      border: 1px solid var(--black);
+      display: inline-block;
+    }
+
+    /* HEADINGS */
+    .editorial-heading {
+      font-size: clamp(32px, 5vw, 44px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 24px;
+    }
+
+    .heading-chip {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 2px 10px;
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-sm);
+      transform: rotate(-1deg);
+      margin-top: 4px;
+    }
+
+    /* PROFILE HERO CARD */
+    .profile-hero-card {
+      border: 2px solid var(--black);
+      background: var(--white);
+      box-shadow: var(--shadow-hard);
+      padding: 28px 32px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .profile-hero-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .profile-avatar-lg {
+      width: 60px;
+      height: 60px;
+      background: var(--black);
+      color: var(--yellow);
+      border: 2.5px solid var(--black);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .profile-identity-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .profile-display-name {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 1.1;
+    }
+
+    .profile-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .status-pill-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--off-white);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border: 1.5px solid var(--black);
+      box-shadow: 2px 2px 0 var(--black);
+      text-transform: uppercase;
+    }
+
+    /* ACTION BUTTONS */
+    .btn-edit-profile {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 20px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: background 0.12s, transform 0.12s, box-shadow 0.12s;
+    }
+
+    .btn-edit-profile:hover {
+      background: var(--yellow-hover);
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-edit-profile svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2.4;
+      fill: none;
+    }
+
+    .edit-actions-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-cancel-edit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      padding: 0 18px;
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-xs);
+      cursor: pointer;
+      transition: background 0.12s, transform 0.12s;
+    }
+
+    .btn-cancel-edit:hover {
+      background: var(--gray-100);
+      transform: translate(-1px, -1px);
+    }
+
+    .btn-save-profile {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 22px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: background 0.12s, transform 0.12s, box-shadow 0.12s;
+    }
+
+    .btn-save-profile:hover {
+      background: var(--yellow-hover);
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-save-profile svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* PROFILE SECTIONS CONTAINER */
+    .profile-sections-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .profile-card {
+      background: var(--white);
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-hard);
+      padding: 28px 32px;
+    }
+
+    .profile-card-header {
+      border-bottom: 2px solid var(--black);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .profile-card-title {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    .profile-card-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--gray-500);
+      text-transform: uppercase;
+    }
+
+    /* DATA GRIDS */
+    .fields-grid-2col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .fields-grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .fields-grid-4col {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    /* VIEW MODE FIELD TILE */
+    .data-tile {
+      border: 1.5px solid var(--black);
+      background: var(--off-white);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-xs);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 84px;
+    }
+
+    .data-label {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .data-value {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--black);
+      word-break: break-word;
+    }
+
+    .data-value-highlight {
+      color: var(--black);
+      font-weight: 900;
+    }
+
+    .data-badge-readonly {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      font-weight: 800;
+      color: var(--gray-600);
+      background: var(--gray-200);
+      border: 1px solid var(--black);
+      padding: 2px 6px;
+      letter-spacing: 0.04em;
+    }
+
+    /* EDIT MODE FORM CONTROLS */
+    .form-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      height: 44px;
+      padding: 0 14px;
+      background: var(--white);
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-xs);
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--black);
+      outline: none;
+      transition: all 0.12s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      background: var(--off-white);
+      border-color: var(--black);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-input.is-readonly {
+      background: var(--gray-100);
+      color: var(--gray-600);
+      border-color: var(--gray-400);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .form-field-note {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--gray-500);
+      margin-top: 3px;
+    }
+
+    /* GOAL CARDS SELECTION (EDIT MODE) */
+    .goal-cards-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .goal-select-box {
+      border: 2px solid var(--black);
+      background: var(--white);
+      padding: 14px;
+      box-shadow: var(--shadow-xs);
+      cursor: pointer;
+      transition: all 0.12s;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 80px;
+    }
+
+    .goal-select-box:hover {
+      background: var(--gray-50);
+      transform: translate(-1px, -1px);
+    }
+
+    .goal-select-box.is-selected {
+      background: var(--yellow);
+      border: 2.5px solid var(--black);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .goal-select-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--black);
+    }
+
+    .goal-select-desc {
+      font-size: 11px;
+      color: var(--gray-600);
+      margin-top: 4px;
+    }
+
+    .goal-select-box.is-selected .goal-select-desc {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    /* CHIP GRIDS (TAGS & TOOLS) */
+    .chips-flow-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tag-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border: 1.5px solid var(--black);
+      background: var(--off-white);
+      box-shadow: 2px 2px 0 var(--black);
+      color: var(--black);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-chip.accent {
+      background: var(--yellow);
+      font-weight: 800;
+    }
+
+    .toggle-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 12px;
+      border: 1.5px solid var(--black);
+      background: var(--white);
+      box-shadow: var(--shadow-xs);
+      color: var(--gray-700);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.12s;
+    }
+
+    .toggle-chip:hover {
+      background: var(--gray-100);
+      transform: translate(-1px, -1px);
+    }
+
+    .toggle-chip.is-selected {
+      background: var(--yellow);
+      color: var(--black);
+      font-weight: 800;
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast-banner {
+      display: none;
+      background: var(--yellow);
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow-md);
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      animation: fadeInToast 0.2s ease-out;
+    }
+
+    .toast-banner.is-active {
+      display: flex;
+    }
+
+    @keyframes fadeInToast {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FOOTER */
+    .site-footer {
+      border-top: 2px solid var(--black);
+      background: var(--white);
+      padding: 24px 32px;
+      margin-top: 60px;
+    }
+
+    .site-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .site-footer-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    .site-footer-tagline {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .site-footer-links {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .site-footer-link {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.12s;
+    }
+
+    .site-footer-link:hover {
+      color: var(--black);
+    }
+
+    .site-footer-sep {
+      font-size: 10px;
+      color: var(--gray-300);
+      margin: 0 8px;
+    }
+
+    /* MODAL OVERLAY */
+    .modal-overlay-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay-backdrop:target {
+      display: flex;
+    }
+
+    .brutalist-modal-card {
+      background: var(--white);
+      border: 2px solid var(--black);
+      box-shadow: 8px 8px 0px var(--black);
+      max-width: 440px;
+      width: 100%;
+      padding: 32px;
+      position: relative;
+    }
+
+    .modal-header-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .modal-heading {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+
+    .modal-actions-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-modal-cancel {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      padding: 8px 16px;
+      border: 1.5px solid var(--black);
+      background: var(--white);
+      box-shadow: 2px 2px 0px var(--black);
+      transition: background 0.1s;
+    }
+
+    .btn-modal-confirm {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      padding: 8px 16px;
+      border: 1.5px solid var(--black);
+      background: var(--yellow);
+      box-shadow: 2px 2px 0px var(--black);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-modal-confirm svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      fill: none;
+    }
+
+    /* RESPONSIVE LAYOUT */
+    @media (max-width: 900px) {
+      .fields-grid-4col,
+      .fields-grid-3col,
+      .fields-grid-2col,
+      .goal-cards-selector {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-hero-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        padding: 0 16px;
+      }
+
+      .main-content {
+        padding: 24px 16px 40px;
+      }
+
+      .profile-card {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Site Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo-lockup" href="student-dashboard-wireframe.html" aria-label="InterviewOS home">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </div>
+        <div class="logo-text-block">
+          <span class="logo-name">InterviewOS</span>
+          <span class="logo-sub">v2.0 / Profile</span>
+        </div>
+      </a>
+
+      <!-- Right Nav Action -->
+      <div class="header-right">
+        <a href="student-dashboard-wireframe.html" class="header-back-link" title="Return to Student Dashboard">
+          &larr; BACK TO DASHBOARD
+        </a>
+
+        <div class="user-profile-badge">
+          <div class="user-avatar-sq" id="header-avatar-initials">AM</div>
+          <span id="header-user-name">ALEX MERCER</span>
+        </div>
+
+        <a href="#logout-modal-dialog" class="btn-logout" id="header-logout-btn" title="Log out" role="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>LOG OUT</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="main-content">
+
+      <!-- Editorial Overview Badge -->
+      <div>
+        <div class="editorial-badge">
+          <span class="badge-dot"></span>
+          CANDIDATE PROFILE &middot; BATCH 2026
+        </div>
+        <h1 class="editorial-heading">
+          Student<br />
+          <span class="heading-chip">profile.</span>
+        </h1>
+      </div>
+
+      <!-- Success Notification Toast -->
+      <div class="toast-banner" id="profile-toast" role="status" aria-live="polite">
+        <span id="toast-message">// PROFILE UPDATED SUCCESSFULLY &middot; SAVED TO YOUR CANDIDATE RECORD</span>
+        <span style="cursor: pointer;" onclick="document.getElementById('profile-toast').classList.remove('is-active');">&times;</span>
+      </div>
+
+      <!-- Profile Hero Card -->
+      <section class="profile-hero-card" aria-label="Student Identity Overview">
+        <div class="profile-hero-left">
+          <div class="profile-avatar-lg" id="hero-avatar-initials">AM</div>
+          <div class="profile-identity-block">
+            <h2 class="profile-display-name" id="hero-full-name">ALEX MERCER</h2>
+            <div class="profile-meta-line">
+              <span id="hero-role-text">Student</span>
+              <span>&middot;</span>
+              <span id="hero-email-text">alex.mercer@interviewos.dev</span>
+              <span>&middot;</span>
+              <span class="status-pill-verified">● VERIFIED IDENTITY</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="hero-action-slot">
+          <!-- View Mode Button -->
+          <button type="button" class="btn-edit-profile" id="btn-edit-mode" title="Enable profile edit mode">
+            <span>EDIT PROFILE</span>
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Profile Information Sections -->
+      <form id="profile-form" onsubmit="return false;">
+        <div class="profile-sections-stack">
+
+          <!-- SECTION 1: PERSONAL INFORMATION -->
+          <article class="profile-card" aria-label="Personal Information">
+            <div class="profile-card-header">
+              <h3 class="profile-card-title">PERSONAL INFORMATION</h3>
+              <span class="profile-card-tag">// STEP 01 &middot; ACCOUNT CREDENTIALS</span>
+            </div>
+
+            <!-- View Mode Grid -->
+            <div class="fields-grid-3col view-mode-only" id="personal-view-grid">
+              <div class="data-tile">
+                <span class="data-label">FIRST NAME</span>
+                <span class="data-value" id="view-first-name">Alex</span>
+              </div>
+              <div class="data-tile">
+                <span class="data-label">LAST NAME</span>
+                <span class="data-value" id="view-last-name">Mercer</span>
+              </div>
+              <div class="data-tile">
+                <span class="data-label">
+                  <span>EMAIL ADDRESS</span>
+                  <span class="data-badge-readonly">READ-ONLY</span>
+                </span>
+                <span class="data-value" id="view-email">alex.mercer@interviewos.dev</span>
+              </div>
+            </div>
+
+            <!-- Edit Mode Grid -->
+            <div class="fields-grid-3col edit-mode-only" id="personal-edit-grid" style="display: none;">
+              <div class="form-field-group">
+                <label class="form-label" for="edit-first-name">FIRST NAME *</label>
+                <input type="text" class="form-input" id="edit-first-name" required autocomplete="given-name" />
+              </div>
+              <div class="form-field-group">
+                <label class="form-label" for="edit-last-name">LAST NAME *</label>
+                <input type="text" class="form-input" id="edit-last-name" required autocomplete="family-name" />
+              </div>
+              <div class="form-field-group">
+                <label class="form-label" for="edit-email">
+                  <span>EMAIL ADDRESS</span>
+                  <span class="data-badge-readonly">LOGIN IDENTIFIER</span>
+                </label>
+                <input type="email" class="form-input is-readonly" id="edit-email" readonly disabled />
+                <span class="form-field-note">// Account login email cannot be changed</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- SECTION 2: PROFESSIONAL INFORMATION -->
+          <article class="profile-card" aria-label="Professional Information">
+            <div class="profile-card-header">
+              <h3 class="profile-card-title">PROFESSIONAL INFORMATION</h3>
+              <span class="profile-card-tag">// STEP 02 &middot; TECHNICAL BACKGROUND</span>
+            </div>
+
+            <!-- View Mode Grid -->
+            <div class="fields-grid-4col view-mode-only" id="professional-view-grid">
+              <div class="data-tile">
+                <span class="data-label">ROLE</span>
+                <span class="data-value data-value-highlight" id="view-role">Student</span>
+              </div>
+              <div class="data-tile">
+                <span class="data-label">EXPERTISE LEVEL</span>
+                <span class="data-value" id="view-expertise">Intermediate &mdash; Some experience</span>
+              </div>
+              <div class="data-tile">
+                <span class="data-label">YEARS OF EXPERIENCE</span>
+                <span class="data-value" id="view-experience">1–2 years</span>
+              </div>
+              <div class="data-tile">
+                <span class="data-label">COUNTRY / REGION</span>
+                <span class="data-value" id="view-country">United States</span>
+              </div>
+            </div>
+
+            <!-- Edit Mode Grid -->
+            <div class="fields-grid-4col edit-mode-only" id="professional-edit-grid" style="display: none;">
+              <div class="form-field-group">
+                <label class="form-label" for="edit-role">ROLE *</label>
+                <select class="form-select" id="edit-role">
+                  <option>Student</option>
+                  <option>Researcher</option>
+                  <option>Software Engineer</option>
+                  <option>Data Scientist</option>
+                  <option>Academic / Faculty</option>
+                  <option>ML/AI Specialist</option>
+                  <option>Freelancer</option>
+                  <option>Entrepreneur</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-field-group">
+                <label class="form-label" for="edit-expertise">EXPERTISE LEVEL *</label>
+                <select class="form-select" id="edit-expertise">
+                  <option>Beginner &mdash; New to AI/ML</option>
+                  <option>Intermediate &mdash; Some experience</option>
+                  <option>Advanced &mdash; Regular user</option>
+                  <option>Expert &mdash; Power user / Researcher</option>
+                </select>
+              </div>
+
+              <div class="form-field-group">
+                <label class="form-label" for="edit-experience">YEARS OF EXPERIENCE *</label>
+                <select class="form-select" id="edit-experience">
+                  <option>Less than 1 year</option>
+                  <option>1&ndash;2 years</option>
+                  <option>2&ndash;5 years</option>
+                  <option>5&ndash;10 years</option>
+                  <option>10+ years</option>
+                </select>
+              </div>
+
+              <div class="form-field-group">
+                <label class="form-label" for="edit-country">COUNTRY / REGION *</label>
+                <select class="form-select" id="edit-country">
+                  <optgroup label="North America">
+                    <option>United States</option>
+                    <option>Canada</option>
+                    <option>Mexico</option>
+                  </optgroup>
+                  <optgroup label="Asia">
+                    <option>India</option>
+                    <option>Singapore</option>
+                    <option>Japan</option>
+                    <option>South Korea</option>
+                    <option>China</option>
+                  </optgroup>
+                  <optgroup label="Europe">
+                    <option>United Kingdom</option>
+                    <option>Germany</option>
+                    <option>France</option>
+                    <option>Netherlands</option>
+                    <option>Sweden</option>
+                    <option>Switzerland</option>
+                  </optgroup>
+                  <optgroup label="Other">
+                    <option>Australia</option>
+                    <option>Brazil</option>
+                    <option>Other / Not Listed</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+          </article>
+
+          <!-- SECTION 3: GOALS & PREFERENCES -->
+          <article class="profile-card" aria-label="Goals & Preferences">
+            <div class="profile-card-header">
+              <h3 class="profile-card-title">GOALS &amp; PREFERENCES</h3>
+              <span class="profile-card-tag">// STEP 03 &middot; EVALUATION TRACKS</span>
+            </div>
+
+            <!-- PRIMARY GOAL -->
+            <div style="margin-bottom: 24px;">
+              <span class="data-label">PRIMARY GOAL</span>
+              <div class="view-mode-only">
+                <div class="data-tile" style="min-height: auto; padding: 12px 16px; margin-top: 4px;">
+                  <span class="data-value data-value-highlight" id="view-primary-goal">AI/ML Training</span>
+                </div>
+              </div>
+              <div class="edit-mode-only" id="goals-edit-box" style="display: none;">
+                <div class="goal-cards-selector" id="goal-cards-container" role="radiogroup" aria-label="Primary Goal Selection">
+                  <div class="goal-select-box" data-goal="AI/ML Training" role="radio" tabindex="0">
+                    <div class="goal-select-title">AI/ML Training</div>
+                    <div class="goal-select-desc">Train models at scale</div>
+                  </div>
+                  <div class="goal-select-box" data-goal="Model Inference" role="radio" tabindex="0">
+                    <div class="goal-select-title">Model Inference</div>
+                    <div class="goal-select-desc">Test and deploy models</div>
+                  </div>
+                  <div class="goal-select-box" data-goal="Data Processing" role="radio" tabindex="0">
+                    <div class="goal-select-title">Data Processing</div>
+                    <div class="goal-select-desc">Analyze large datasets</div>
+                  </div>
+                  <div class="goal-select-box" data-goal="Research" role="radio" tabindex="0">
+                    <div class="goal-select-title">Research</div>
+                    <div class="goal-select-desc">Academic &amp; scientific research</div>
+                  </div>
+                  <div class="goal-select-box" data-goal="Learning" role="radio" tabindex="0">
+                    <div class="goal-select-title">Learning</div>
+                    <div class="goal-select-desc">Education &amp; skill building</div>
+                  </div>
+                  <div class="goal-select-box" data-goal="Development" role="radio" tabindex="0">
+                    <div class="goal-select-title">Development</div>
+                    <div class="goal-select-desc">Software &amp; application dev</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AREAS OF WORK -->
+            <div style="margin-bottom: 24px;">
+              <span class="data-label">
+                <span>AREAS OF WORK</span>
+                <span class="edit-mode-only" style="display: none;">(Click to toggle)</span>
+              </span>
+
+              <!-- View mode chips -->
+              <div class="chips-flow-container view-mode-only" id="view-areas-container">
+                <!-- Dynamically populated -->
+              </div>
+
+              <!-- Edit mode selectable chips -->
+              <div class="chips-flow-container edit-mode-only" id="edit-areas-container" style="display: none;">
+                <div class="toggle-chip" data-val="Machine Learning">Machine Learning</div>
+                <div class="toggle-chip" data-val="Deep Learning">Deep Learning</div>
+                <div class="toggle-chip" data-val="Computer Vision">Computer Vision</div>
+                <div class="toggle-chip" data-val="Natural Language Processing">Natural Language Processing</div>
+                <div class="toggle-chip" data-val="Data Science">Data Science</div>
+                <div class="toggle-chip" data-val="Software Engineering">Software Engineering</div>
+                <div class="toggle-chip" data-val="Robotics / IoT">Robotics / IoT</div>
+                <div class="toggle-chip" data-val="Scientific Computing">Scientific Computing</div>
+                <div class="toggle-chip" data-val="Research / Academia">Research / Academia</div>
+                <div class="toggle-chip" data-val="Education">Education</div>
+                <div class="toggle-chip" data-val="Other">Other</div>
+              </div>
+            </div>
+
+            <!-- TOOLS & FRAMEWORKS -->
+            <div>
+              <span class="data-label">
+                <span>TOOLS &amp; FRAMEWORKS</span>
+                <span class="edit-mode-only" style="display: none;">(Click to toggle)</span>
+              </span>
+
+              <!-- View mode chips -->
+              <div class="chips-flow-container view-mode-only" id="view-tools-container">
+                <!-- Dynamically populated -->
+              </div>
+
+              <!-- Edit mode selectable chips -->
+              <div class="chips-flow-container edit-mode-only" id="edit-tools-container" style="display: none;">
+                <div class="toggle-chip" data-val="PyTorch">PyTorch</div>
+                <div class="toggle-chip" data-val="TensorFlow">TensorFlow</div>
+                <div class="toggle-chip" data-val="JAX">JAX</div>
+                <div class="toggle-chip" data-val="Keras">Keras</div>
+                <div class="toggle-chip" data-val="Scikit-learn">Scikit-learn</div>
+                <div class="toggle-chip" data-val="Hugging Face">Hugging Face</div>
+                <div class="toggle-chip" data-val="OpenAI API">OpenAI API</div>
+                <div class="toggle-chip" data-val="Pandas">Pandas</div>
+                <div class="toggle-chip" data-val="NumPy">NumPy</div>
+                <div class="toggle-chip" data-val="Docker">Docker</div>
+                <div class="toggle-chip" data-val="Git">Git</div>
+                <div class="toggle-chip" data-val="VS Code">VS Code</div>
+                <div class="toggle-chip" data-val="Linux / Bash">Linux / Bash</div>
+                <div class="toggle-chip" data-val="AWS">AWS</div>
+                <div class="toggle-chip" data-val="Google Cloud">Google Cloud</div>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- BOTTOM ACTIONS BAR (VIEW MODE) -->
+          <div class="view-mode-only" id="bottom-view-actions" style="display: flex; justify-content: flex-end; margin-top: 16px;">
+            <button type="button" class="btn-edit-profile" id="btn-edit-mode-bottom" title="Enable profile edit mode">
+              <span>EDIT PROFILE</span>
+              <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </button>
+          </div>
+
+          <!-- BOTTOM ACTIONS BAR (WHEN IN EDIT MODE) -->
+          <div class="edit-mode-only" id="bottom-edit-actions" style="display: none; justify-content: flex-end; gap: 12px; margin-top: 16px;">
+            <button type="button" class="btn-cancel-edit" id="btn-cancel-bottom">CANCEL</button>
+            <button type="button" class="btn-save-profile" id="btn-save-bottom">
+              <span>SAVE CHANGES</span>
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Interactive Logout Confirmation Modal Overlay -->
+  <div class="modal-overlay-backdrop" id="logout-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="logout-modal-heading">
+    <div class="brutalist-modal-card" style="border-top: 6px solid var(--black);">
+      <div class="modal-header-tag">// AUTHENTICATION &middot; SESSION TERMINATION</div>
+      <h2 class="modal-heading" id="logout-modal-heading">LOG OUT?</h2>
+      <p style="font-size: 13.5px; color: var(--gray-600); line-height: 1.55; margin-bottom: 24px;">
+        Are you sure you want to log out? Any saved profile information and active assessment milestones will remain associated with your candidate account.
+      </p>
+      <div class="modal-actions-bar">
+        <a href="#" class="btn-modal-cancel" id="logout-cancel-btn">CANCEL</a>
+        <a href="signin.html" class="btn-modal-confirm" id="logout-confirm-btn">
+          <span>LOG OUT</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Production Footer -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-left">
+        <span class="site-footer-brand">INTERVIEWOS &copy; 2026</span>
+        <span class="site-footer-tagline">Built for better technical interviews</span>
+      </div>
+      <nav class="site-footer-links" aria-label="Site legal links">
+        <a href="#" class="site-footer-link">Privacy</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Terms</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Security</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Profile Controller Logic -->
+  <script>
+    (function () {
+      var STORAGE_KEY = 'interviewos_student_profile';
+
+      // Safe demo profile based on existing Sign Up flow
+      var DEFAULT_PROFILE = {
+        firstName: 'Alex',
+        lastName: 'Mercer',
+        email: 'alex.mercer@interviewos.dev',
+        role: 'Student',
+        expertise: 'Intermediate — Some experience',
+        experience: '1–2 years',
+        country: 'United States',
+        primaryGoal: 'AI/ML Training',
+        areasOfWork: ['Machine Learning', 'Data Science', 'Software Engineering'],
+        tools: ['PyTorch', 'TensorFlow', 'Pandas', 'Git', 'VS Code']
+      };
+
+      // In-memory active profile
+      var currentProfile = null;
+      var isEditMode = false;
+
+      function computeInitials(first, last) {
+        var f = (first || '').trim().charAt(0).toUpperCase();
+        var l = (last || '').trim().charAt(0).toUpperCase();
+        return (f + l) || 'AM';
+      }
+
+      function computeFullName(first, last) {
+        var full = ((first || '') + ' ' + (last || '')).trim();
+        return full.toUpperCase() || 'ALEX MERCER';
+      }
+
+      function loadProfile() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            currentProfile = Object.assign({}, DEFAULT_PROFILE, JSON.parse(raw));
+          } else {
+            currentProfile = Object.assign({}, DEFAULT_PROFILE);
+          }
+        } catch (e) {
+          currentProfile = Object.assign({}, DEFAULT_PROFILE);
+        }
+      }
+
+      function saveProfileToStorage(data) {
+        currentProfile = Object.assign({}, currentProfile, data);
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(currentProfile));
+        } catch (e) {}
+      }
+
+      function renderViewMode() {
+        var initials = computeInitials(currentProfile.firstName, currentProfile.lastName);
+        var fullName = computeFullName(currentProfile.firstName, currentProfile.lastName);
+
+        // Header and Hero elements
+        var headerInitialsEl = document.getElementById('header-avatar-initials');
+        var headerNameEl = document.getElementById('header-user-name');
+        var heroInitialsEl = document.getElementById('hero-avatar-initials');
+        var heroNameEl = document.getElementById('hero-full-name');
+        var heroRoleEl = document.getElementById('hero-role-text');
+        var heroEmailEl = document.getElementById('hero-email-text');
+
+        if (headerInitialsEl) headerInitialsEl.textContent = initials;
+        if (headerNameEl) headerNameEl.textContent = fullName;
+        if (heroInitialsEl) heroInitialsEl.textContent = initials;
+        if (heroNameEl) heroNameEl.textContent = fullName;
+        if (heroRoleEl) heroRoleEl.textContent = currentProfile.role;
+        if (heroEmailEl) heroEmailEl.textContent = currentProfile.email;
+
+        // Section 1: Personal
+        var viewFirstEl = document.getElementById('view-first-name');
+        var viewLastEl = document.getElementById('view-last-name');
+        var viewEmailEl = document.getElementById('view-email');
+        if (viewFirstEl) viewFirstEl.textContent = currentProfile.firstName;
+        if (viewLastEl) viewLastEl.textContent = currentProfile.lastName;
+        if (viewEmailEl) viewEmailEl.textContent = currentProfile.email;
+
+        // Section 2: Professional
+        var viewRoleEl = document.getElementById('view-role');
+        var viewExpertiseEl = document.getElementById('view-expertise');
+        var viewExpEl = document.getElementById('view-experience');
+        var viewCountryEl = document.getElementById('view-country');
+        if (viewRoleEl) viewRoleEl.textContent = currentProfile.role;
+        if (viewExpertiseEl) viewExpertiseEl.textContent = currentProfile.expertise;
+        if (viewExpEl) viewExpEl.textContent = currentProfile.experience;
+        if (viewCountryEl) viewCountryEl.textContent = currentProfile.country;
+
+        // Section 3: Goals & Preferences
+        var viewGoalEl = document.getElementById('view-primary-goal');
+        if (viewGoalEl) viewGoalEl.textContent = currentProfile.primaryGoal;
+
+        var areasContainer = document.getElementById('view-areas-container');
+        if (areasContainer) {
+          areasContainer.innerHTML = (currentProfile.areasOfWork || []).map(function (area) {
+            return '<span class="tag-chip accent">' + area + '</span>';
+          }).join('');
+        }
+
+        var toolsContainer = document.getElementById('view-tools-container');
+        if (toolsContainer) {
+          toolsContainer.innerHTML = (currentProfile.tools || []).map(function (tool) {
+            return '<span class="tag-chip">' + tool + '</span>';
+          }).join('');
+        }
+      }
+
+      function populateEditForm() {
+        var editFirst = document.getElementById('edit-first-name');
+        var editLast = document.getElementById('edit-last-name');
+        var editEmail = document.getElementById('edit-email');
+        var editRole = document.getElementById('edit-role');
+        var editExpertise = document.getElementById('edit-expertise');
+        var editExp = document.getElementById('edit-experience');
+        var editCountry = document.getElementById('edit-country');
+
+        if (editFirst) editFirst.value = currentProfile.firstName;
+        if (editLast) editLast.value = currentProfile.lastName;
+        if (editEmail) editEmail.value = currentProfile.email;
+        if (editRole) editRole.value = currentProfile.role;
+        if (editExpertise) editExpertise.value = currentProfile.expertise;
+        if (editExp) editExp.value = currentProfile.experience;
+        if (editCountry) editCountry.value = currentProfile.country;
+
+        // Select Goal card
+        var goalCards = document.querySelectorAll('#goal-cards-container .goal-select-box');
+        goalCards.forEach(function (card) {
+          var goal = card.getAttribute('data-goal');
+          card.classList.toggle('is-selected', goal === currentProfile.primaryGoal);
+        });
+
+        // Set Area chips
+        var areaChips = document.querySelectorAll('#edit-areas-container .toggle-chip');
+        areaChips.forEach(function (chip) {
+          var val = chip.getAttribute('data-val');
+          chip.classList.toggle('is-selected', (currentProfile.areasOfWork || []).indexOf(val) !== -1);
+        });
+
+        // Set Tools chips
+        var toolChips = document.querySelectorAll('#edit-tools-container .toggle-chip');
+        toolChips.forEach(function (chip) {
+          var val = chip.getAttribute('data-val');
+          chip.classList.toggle('is-selected', (currentProfile.tools || []).indexOf(val) !== -1);
+        });
+      }
+
+      function setMode(editing) {
+        isEditMode = editing;
+
+        document.querySelectorAll('.view-mode-only').forEach(function (el) {
+          el.style.display = editing ? 'none' : '';
+        });
+        document.querySelectorAll('.edit-mode-only').forEach(function (el) {
+          el.style.display = editing ? '' : 'none';
+        });
+
+        var heroActionSlot = document.getElementById('hero-action-slot');
+        if (heroActionSlot) {
+          if (editing) {
+            heroActionSlot.innerHTML =
+              '<div class="edit-actions-bar">' +
+                '<button type="button" class="btn-cancel-edit" id="btn-cancel-top">CANCEL</button>' +
+                '<button type="button" class="btn-save-profile" id="btn-save-top">' +
+                  '<span>SAVE CHANGES</span>' +
+                  '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>' +
+                '</button>' +
+              '</div>';
+
+            document.getElementById('btn-cancel-top').addEventListener('click', cancelEditing);
+            document.getElementById('btn-save-top').addEventListener('click', saveChanges);
+          } else {
+            heroActionSlot.innerHTML =
+              '<button type="button" class="btn-edit-profile" id="btn-edit-mode">' +
+                '<span>EDIT PROFILE</span>' +
+                '<svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>' +
+              '</button>';
+
+            document.getElementById('btn-edit-mode').addEventListener('click', function () {
+              populateEditForm();
+              setMode(true);
+            });
+          }
+        }
+      }
+
+      function saveChanges() {
+        var firstEl = document.getElementById('edit-first-name');
+        var lastEl = document.getElementById('edit-last-name');
+        var roleEl = document.getElementById('edit-role');
+        var expertiseEl = document.getElementById('edit-expertise');
+        var expEl = document.getElementById('edit-experience');
+        var countryEl = document.getElementById('edit-country');
+
+        var newFirst = (firstEl ? firstEl.value : '').trim();
+        var newLast = (lastEl ? lastEl.value : '').trim();
+
+        if (!newFirst) {
+          alert('Please enter your First Name.');
+          if (firstEl) firstEl.focus();
+          return;
+        }
+
+        if (!newLast) {
+          alert('Please enter your Last Name.');
+          if (lastEl) lastEl.focus();
+          return;
+        }
+
+        // Get selected goal
+        var selectedGoalCard = document.querySelector('#goal-cards-container .goal-select-box.is-selected');
+        var newGoal = selectedGoalCard ? selectedGoalCard.getAttribute('data-goal') : currentProfile.primaryGoal;
+
+        // Get selected areas of work
+        var newAreas = [];
+        document.querySelectorAll('#edit-areas-container .toggle-chip.is-selected').forEach(function (chip) {
+          newAreas.push(chip.getAttribute('data-val'));
+        });
+        if (newAreas.length === 0) newAreas = currentProfile.areasOfWork;
+
+        // Get selected tools
+        var newTools = [];
+        document.querySelectorAll('#edit-tools-container .toggle-chip.is-selected').forEach(function (chip) {
+          newTools.push(chip.getAttribute('data-val'));
+        });
+        if (newTools.length === 0) newTools = currentProfile.tools;
+
+        // Commit updates
+        var updated = {
+          firstName: newFirst,
+          lastName: newLast,
+          role: roleEl ? roleEl.value : currentProfile.role,
+          expertise: expertiseEl ? expertiseEl.value : currentProfile.expertise,
+          experience: expEl ? expEl.value : currentProfile.experience,
+          country: countryEl ? countryEl.value : currentProfile.country,
+          primaryGoal: newGoal,
+          areasOfWork: newAreas,
+          tools: newTools
+        };
+
+        saveProfileToStorage(updated);
+        renderViewMode();
+        setMode(false);
+
+        // Show toast notification
+        var toast = document.getElementById('profile-toast');
+        if (toast) {
+          toast.classList.add('is-active');
+          setTimeout(function () {
+            toast.classList.remove('is-active');
+          }, 4000);
+        }
+      }
+
+      function cancelEditing() {
+        renderViewMode();
+        setMode(false);
+      }
+
+      // Initialize UI
+      loadProfile();
+      renderViewMode();
+
+      // Initial View Mode Button Listeners (Hero slot & Bottom)
+      var initEditBtn = document.getElementById('btn-edit-mode');
+      if (initEditBtn) {
+        initEditBtn.addEventListener('click', function () {
+          populateEditForm();
+          setMode(true);
+        });
+      }
+
+      var initEditBtnBottom = document.getElementById('btn-edit-mode-bottom');
+      if (initEditBtnBottom) {
+        initEditBtnBottom.addEventListener('click', function () {
+          populateEditForm();
+          setMode(true);
+        });
+      }
+
+      // Bottom Cancel / Save listeners
+      var cancelBottom = document.getElementById('btn-cancel-bottom');
+      if (cancelBottom) cancelBottom.addEventListener('click', cancelEditing);
+
+      var saveBottom = document.getElementById('btn-save-bottom');
+      if (saveBottom) saveBottom.addEventListener('click', saveChanges);
+
+      // Interactive Goal selection
+      document.querySelectorAll('#goal-cards-container .goal-select-box').forEach(function (card) {
+        card.addEventListener('click', function () {
+          document.querySelectorAll('#goal-cards-container .goal-select-box').forEach(function (c) {
+            c.classList.remove('is-selected');
+          });
+          this.classList.add('is-selected');
+        });
+      });
+
+      // Interactive Chips toggle
+      document.querySelectorAll('#edit-areas-container .toggle-chip, #edit-tools-container .toggle-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          this.classList.toggle('is-selected');
+        });
+      });
+
+      // Logout modal backdrop click and ESC key handling
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && window.location.hash === '#logout-modal-dialog') {
+          window.location.hash = '';
+        }
+      });
+      var logoutModal = document.getElementById('logout-modal-dialog');
+      if (logoutModal) {
+        logoutModal.addEventListener('click', function (e) {
+          if (e.target === this) window.location.hash = '';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

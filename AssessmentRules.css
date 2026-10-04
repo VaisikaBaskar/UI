@@ -1,0 +1,670 @@
+/* ==========================================================================
+   InterviewOS — Assessment Rules & Regulations Component Styles
+   Neubrutalist Developer Aesthetic / Centered White Panel
+   Compact Layout & Proportional Spacing Fix
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black:         #0a0a0a;
+  --white:         #ffffff;
+  --off-white:     #fafafa;
+  --bg-page:       #ffffff;
+  --gray-50:       #fafaf9;
+  --gray-100:      #f2f2f0;
+  --gray-200:      #e2e2de;
+  --gray-300:      #c8c8c2;
+  --gray-400:      #9c9c94;
+  --gray-500:      #686860;
+  --gray-600:      #4e4e47;
+  --gray-700:      #363630;
+  --gray-800:      #22221e;
+  --gray-900:      #141412;
+
+  --yellow:        #ffe500;
+  --yellow-hover:  #ebd300;
+  --yellow-light:  #fef9c3;
+  --blue:          #2563eb;
+  --green:         #16a34a;
+
+  --shadow-card:   8px 8px 0px 0px #0a0a0a;
+  --shadow-hard:   4px 4px 0px 0px #0a0a0a;
+  --shadow-md:     3px 3px 0px 0px #0a0a0a;
+  --shadow-sm:     2px 2px 0px 0px #0a0a0a;
+  --shadow-xs:     1.5px 1.5px 0px 0px #0a0a0a;
+
+  --font-sans:     'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:     'JetBrains Mono', monospace;
+}
+
+.ar-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: var(--font-sans);
+  background-color: var(--white);
+  background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── 1. TOP SITE HEADER ────────────────────────────────────────────────── */
+.ar-site-header {
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.ar-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ar-logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.ar-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--black);
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.ar-logo-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--white);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.ar-logo-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ar-logo-name {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: 1;
+}
+
+.ar-logo-sub {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--gray-500);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ar-header-back-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  padding: 5px 12px;
+  border: 2px solid var(--black);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+
+.ar-header-back-link:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--black);
+}
+
+.ar-header-back-link:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--black);
+}
+
+/* ── 2. MAIN CONTAINER & COMPACT CENTERED WHITE PANEL ──────────────────── */
+.ar-main-container {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(20px, 3vh, 32px) 16px;
+}
+
+.ar-card-panel {
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-card);
+  width: 100%;
+  max-width: 960px;
+  padding: clamp(24px, 3vw, 36px) clamp(20px, 3.5vw, 36px);
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 0;
+}
+
+/* ── 3. PROTOCOL BADGE ─────────────────────────────────────────────────── */
+.ar-protocol-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-sm);
+  padding: 3px 9px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--black);
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+
+.ar-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--black);
+}
+
+/* ── 4. TITLE & SUBTITLE SECTION ───────────────────────────────────────── */
+.ar-title-block {
+  margin-bottom: 14px;
+}
+
+.ar-main-title {
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: 1.12;
+  margin-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.ar-heading-accent {
+  background: var(--black);
+  color: var(--white);
+  padding: 2px 8px;
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-sm);
+  display: inline-block;
+}
+
+.ar-subtitle {
+  font-size: 13px;
+  color: var(--gray-600);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* ── 5. ASSESSMENT SUMMARY MATRIX (4 EQUAL COLUMNS) ────────────────────── */
+.ar-summary-matrix {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-hard);
+  margin-bottom: 12px;
+}
+
+.ar-summary-col {
+  padding: 8px 14px;
+  border-right: 2px solid var(--black);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ar-summary-col:last-child {
+  border-right: none;
+}
+
+.ar-summary-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ar-summary-val-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ar-summary-val {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--black);
+}
+
+.ar-active-chip {
+  background: var(--yellow);
+  border: 1.5px solid var(--black);
+  box-shadow: var(--shadow-xs);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 900;
+  padding: 0px 5px;
+  text-transform: uppercase;
+}
+
+/* ── 6. RULES SECTION (COMPACT BALANCED 2-COL GRID) ────────────────────── */
+.ar-rules-block {
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-hard);
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  height: auto;
+  min-height: 0;
+}
+
+.ar-rules-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--black);
+  padding-bottom: 7px;
+  margin-bottom: 10px;
+}
+
+.ar-rules-heading {
+  font-size: 11.5px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ar-rules-protocol-tag {
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 900;
+  padding: 1px 6px;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+.ar-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 3.5vw, 40px);
+  row-gap: 0;
+  height: auto;
+  min-height: 0;
+}
+
+.ar-rules-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ar-rule-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.ar-rule-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 900;
+  color: var(--black);
+  background: var(--yellow);
+  border: 1.5px solid var(--black);
+  box-shadow: var(--shadow-xs);
+  padding: 0px 5px;
+  min-width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.ar-rule-text {
+  font-weight: 700;
+  color: var(--black);
+}
+
+/* ── 7. IMPORTANT NOTICE STRIP ─────────────────────────────────────────── */
+.ar-notice-strip {
+  background: var(--yellow-light);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-hard);
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.ar-notice-badge {
+  background: var(--yellow);
+  border: 1.5px solid var(--black);
+  box-shadow: var(--shadow-xs);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--black);
+  padding: 1px 7px;
+  flex-shrink: 0;
+}
+
+.ar-notice-text {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--black);
+}
+
+/* ── 8. CONFIRMATION CHECKBOX ──────────────────────────────────────────── */
+.ar-checkbox-block {
+  margin-bottom: 16px;
+}
+
+.ar-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.35;
+}
+
+.ar-native-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.ar-custom-checkbox {
+  width: 19px;
+  height: 19px;
+  border: 2px solid var(--black);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.12s ease;
+}
+
+.ar-native-checkbox:checked + .ar-custom-checkbox {
+  background: var(--yellow);
+}
+
+.ar-check-svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--black);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.12s ease;
+}
+
+.ar-native-checkbox:checked + .ar-custom-checkbox .ar-check-svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ar-checkbox-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--black);
+}
+
+/* ── 9. ACTION BUTTONS (IMMEDIATELY AFTER CHECKBOX) ────────────────────── */
+.ar-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.ar-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 16px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-hard);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+
+.ar-btn-secondary:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px var(--black);
+}
+
+.ar-btn-secondary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--black);
+}
+
+.ar-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 42px;
+  padding: 0 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 2px solid var(--black);
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+
+/* Disabled Primary Button */
+.ar-btn-primary:disabled,
+.ar-btn-primary.is-disabled {
+  background: var(--gray-200);
+  color: var(--gray-400);
+  border-color: var(--gray-400);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Enabled Primary Button */
+.ar-btn-primary:not(:disabled) {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+  box-shadow: var(--shadow-hard);
+  cursor: pointer;
+}
+
+.ar-btn-primary:not(:disabled):hover {
+  background: var(--yellow);
+  color: var(--black);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px var(--black);
+}
+
+.ar-btn-primary:not(:disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--black);
+}
+
+/* ── 10. TOAST NOTIFICATION ────────────────────────────────────────────── */
+.ar-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--black);
+  color: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-hard);
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.15s ease;
+  z-index: 1000;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.ar-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── RESPONSIVE TABLET & MOBILE ADJUSTMENTS ────────────────────────────── */
+@media (max-width: 860px) {
+  .ar-summary-matrix {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ar-summary-col:nth-child(2) {
+    border-right: none;
+  }
+
+  .ar-summary-col:nth-child(1),
+  .ar-summary-col:nth-child(2) {
+    border-bottom: 2px solid var(--black);
+  }
+
+  .ar-rules-grid {
+    column-gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ar-main-container {
+    padding: 14px 10px;
+  }
+
+  .ar-card-panel {
+    padding: 16px 14px;
+    box-shadow: 5px 5px 0px var(--black);
+  }
+
+  .ar-summary-matrix {
+    grid-template-columns: 1fr;
+  }
+
+  .ar-summary-col {
+    border-right: none;
+    border-bottom: 2px solid var(--black);
+  }
+
+  .ar-summary-col:last-child {
+    border-bottom: none;
+  }
+
+  .ar-rules-grid {
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+  }
+
+  .ar-rules-column {
+    gap: 8px;
+  }
+
+  .ar-notice-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .ar-actions-row {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .ar-btn-secondary,
+  .ar-btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ar-logo-sub {
+    display: none;
+  }
+}

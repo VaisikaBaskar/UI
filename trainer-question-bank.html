@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Question Bank — InterviewOS Trainer</title>
+  <meta name="description" content="Centralized Question Bank Management and Assessment Preparation Module for InterviewOS Trainers." />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Standalone Stylesheet -->
+  <link rel="stylesheet" href="trainer-question-bank.css?v=1.3" />
+  <link rel="stylesheet" href="bulk-upload.css" />
+</head>
+<body>
+
+  <!-- ========================================================================
+       SITE HEADER
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-lockup">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </div>
+        <div class="logo-text-block">
+          <div class="logo-name">INTERVIEWOS</div>
+          <div class="logo-sub">V2.0 / TRAINER QUESTION BANK</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="header-portal-tag">TRAINER PORTAL</div>
+        <div class="header-portal-tag" style="background:var(--black);color:var(--yellow);">QUESTION BANK</div>
+
+        <div class="trainer-profile-chip">
+          <div class="trainer-avatar">VS</div>
+          <div class="trainer-meta">
+            <span class="trainer-name">PROF. VIKRAM SEN</span>
+            <span class="trainer-role">LEAD EVALUATOR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN CONTAINER
+       ======================================================================== -->
+  <main>
+    <div class="main-content">
+
+      <!-- ====================================================================
+           QUESTION BANK REVIEW INTERFACE (VIEW BANK FLOW)
+           Direct MCQ Question Interface for Reviewing Bank Questions
+           ==================================================================== -->
+      <section class="qb-detail-content-area" id="panel-qb">
+
+        <!-- DEDICATED VIEW BANK QUESTION REVIEW FLOW -->
+        <div class="qb-view-bank-flow" id="qb-view-bank-flow">
+
+          <!-- 1. COMPACT VIEW QUESTIONS HEADER -->
+          <div class="view-bank-header-wrap" id="mcq-view-hero">
+            <!-- Single Compact Yellow Context Strip (Desktop: Single Horizontal Row, ~44-52px) -->
+            <div class="view-bank-context-strip">
+              <!-- 1. Left: Trainer Kicker -->
+              <div class="vb-strip-section vb-strip-left">
+                <span class="badge-dot"></span>
+                <span class="vb-strip-kicker">TRAINER QUESTION BANK // VIEW QUESTIONS</span>
+              </div>
+
+              <!-- 2. Center: Bank Name -->
+              <div class="vb-strip-section vb-strip-bank" id="view-bank-name-badge-wrap">
+                <span class="vb-strip-slash">//</span>
+                <span class="vb-strip-label">BANK:</span>
+                <strong class="vb-strip-bank-badge" id="view-bank-name-badge">QUANTITATIVE &amp; ANALYTICAL APTITUDE</strong>
+              </div>
+
+              <!-- 3. Right-Center: Stage -->
+              <div class="vb-strip-section vb-strip-stage" id="view-stage-badge-wrap">
+                <span class="vb-strip-slash">//</span>
+                <span class="vb-strip-label">STAGE:</span>
+                <strong class="vb-strip-stage-badge" id="view-stage-badge">APTITUDE</strong>
+              </div>
+
+              <!-- 4. Far Right: MCQ Count -->
+              <div class="vb-strip-section vb-strip-count" id="view-count-badge-wrap">
+                <span class="vb-strip-count-badge" id="view-count-badge">10 MCQS</span>
+              </div>
+            </div>
+
+            <!-- Question Bank Title and Back Navigation below the yellow header -->
+            <div class="view-bank-title-bar">
+              <h1 class="editorial-heading" style="font-size:24px;margin:0;line-height:1.2;">
+                <span id="view-bank-title-display">QUANTITATIVE &amp; ANALYTICAL APTITUDE</span>
+              </h1>
+              <a href="trainer-home.html" class="qb-review-back-btn" id="btn-view-back-to-qb" title="Return to Question Bank listing">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>BACK TO QUESTION BANK</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 2. NAVIGATION TABS (CURRENT QUESTION & QUESTION MAP) -->
+          <div class="mcq-nav-tabs-bar" id="view-mcq-nav-tabs-bar" style="display:flex;">
+            <button type="button" class="mcq-nav-tab is-active" id="view-tab-btn-current-q" aria-label="Current Question">
+              <span class="tab-num" id="view-tab-num">01</span>
+              <span class="tab-label">CURRENT QUESTION</span>
+            </button>
+            <button type="button" class="mcq-nav-tab" id="view-tab-btn-overview" aria-label="Question Map">
+              <span class="tab-num">02</span>
+              <span class="tab-label">QUESTION MAP</span>
+            </button>
+          </div>
+
+          <!-- 3. MCQ QUESTION VIEW CARD (2-COLUMN MCQ INTERFACE STYLE) -->
+          <div class="qb-builder-card" id="view-mcq-card">
+            <div class="qb-builder-card-header">
+              <div class="qb-builder-title" id="view-card-title">
+                QUESTION 01 // MULTIPLE CHOICE QUESTION
+              </div>
+            </div>
+
+            <div class="qb-builder-grid">
+
+              <!-- LEFT COLUMN: QUESTION CONTENT & OPTIONS -->
+              <div class="qb-builder-left">
+                <!-- QUESTION CONTENT -->
+                <div class="form-field-group">
+                  <div class="form-label-row">
+                    <label class="form-label" for="view-q-text">
+                      <span>QUESTION CONTENT</span>
+                      <span style="color:var(--gray-600);font-size:10px;font-family:var(--font-mono);">VIEW MODE</span>
+                    </label>
+                    <span class="attach-img-btn" id="view-img-indicator" style="pointer-events:none;opacity:0.8;display:none;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                      IMAGE ATTACHED
+                    </span>
+                  </div>
+                  <textarea
+                    id="view-q-text"
+                    class="form-textarea"
+                    readonly
+                    placeholder="Question content..."
+                    style="min-height:90px;background:#fafafa;cursor:default;resize:vertical;"
+                  ></textarea>
+
+                  <!-- Inline image attachment zone (visible if image exists) -->
+                  <div class="q-img-attach-zone" id="view-image-wrap" style="display:none;padding:12px;background:#fafafa;border:1.5px dashed var(--black);margin-top:10px;">
+                    <div class="q-img-preview-area" style="display:flex;align-items:center;justify-content:center;">
+                      <img id="view-image-img" src="" alt="Question Graphic" style="max-height:220px;max-width:100%;object-fit:contain;border:1.5px solid var(--black);" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ANSWER OPTIONS -->
+                <div class="form-field-group">
+                  <div class="form-label">
+                    <span>ANSWER OPTIONS</span>
+                    <span style="color:var(--green);font-weight:900;">RADIO = CORRECT ANSWER</span>
+                  </div>
+
+                  <div id="view-options-container" class="qb-options-grid">
+                    <!-- Rendered dynamically (Option A, B, C, D) -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT COLUMN: QUESTION SETTINGS PANEL -->
+              <div class="qb-builder-right">
+                <div class="qb-settings-panel-title">
+                  <span>QUESTION SETTINGS</span>
+                </div>
+
+                <!-- Stage -->
+                <div class="form-field-group">
+                  <label class="form-label" for="view-stage">STAGE</label>
+                  <input type="text" id="view-stage" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="Aptitude" />
+                </div>
+
+                <!-- Difficulty -->
+                <div class="form-field-group">
+                  <label class="form-label" for="view-difficulty">DIFFICULTY</label>
+                  <input type="text" id="view-difficulty" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="Medium" />
+                </div>
+
+                <!-- Priority -->
+                <div class="form-field-group">
+                  <label class="form-label" for="view-priority">PRIORITY</label>
+                  <input type="text" id="view-priority" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="Medium" />
+                </div>
+
+                <!-- Positive & Negative Marks -->
+                <div class="form-grid-2col" style="gap:10px;">
+                  <div class="form-field-group">
+                    <label class="form-label" for="view-pos-marks">POSITIVE MARKS</label>
+                    <input type="text" id="view-pos-marks" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="1" />
+                  </div>
+                  <div class="form-field-group">
+                    <label class="form-label" for="view-neg-marks">NEGATIVE MARKS</label>
+                    <input type="text" id="view-neg-marks" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="0.25" />
+                  </div>
+                </div>
+
+                <!-- Topic Marker -->
+                <div class="form-field-group">
+                  <label class="form-label">TOPIC MARKER</label>
+                  <div id="view-tags-container" style="display:flex;flex-wrap:wrap;gap:6px;min-height:34px;align-items:center;">
+                    <!-- Rendered topic chips -->
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="qb-builder-footer" style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px;flex-wrap:wrap;">
+              <div>
+                <a href="trainer-home.html" class="btn-secondary" id="btn-view-cancel" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+                  <span>←</span>
+                  <span>CANCEL / BACK</span>
+                </a>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <button type="button" class="btn-secondary" id="btn-view-prev" style="display:none;">
+                  ← PREV QUESTION
+                </button>
+                <button type="button" class="btn-secondary" id="btn-view-edit" style="display:inline-flex;align-items:center;gap:6px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                  <span>EDIT QUESTION</span>
+                </button>
+                <button type="button" class="btn-primary-yellow" id="btn-view-next" style="display:inline-flex;align-items:center;gap:6px;font-weight:900;">
+                  <span>NEXT QUESTION →</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Empty State (When Question Bank has 0 MCQs) -->
+          <div class="qb-review-empty-state" id="view-empty-state" style="display:none;background:var(--white);border:2px solid var(--black);box-shadow:var(--shadow-hard);padding:40px 24px;text-align:center;">
+            <div class="empty-state-title" style="font-family:var(--font-mono);font-size:16px;font-weight:900;">NO QUESTIONS IN THIS QUESTION BANK YET</div>
+            <p class="empty-state-desc" style="color:var(--gray-600);margin-top:8px;">
+              This Question Bank is currently empty. Add your first MCQ to start configuring questions.
+            </p>
+            <button type="button" class="btn-primary-yellow" id="btn-view-empty-create" style="margin-top:16px;height:38px;padding:0 18px;font-size:11.5px;font-weight:900;">
+              + CREATE FIRST MCQ →
+            </button>
+          </div>
+
+          <!-- 4. EMBEDDED QUESTION BANK OVERVIEW (TWO-COLUMN NAVIGATOR LAYOUT) -->
+          <div id="view-overview-panel" style="display:none;width:100%;">
+            <div class="qb-overview-layout-2col" id="view-overview-layout-2col">
+
+              <!-- LEFT COLUMN: QUESTION LIST (~70%) -->
+              <div class="qb-overview-left-card">
+                <div class="qb-overview-card-header-bar">
+                  <div class="qb-overview-panel-title">
+                    <span>QUESTION LIST</span>
+                  </div>
+                </div>
+                <div class="qb-overview-rows-container" id="view-overview-rows-container">
+                  <!-- Dynamically populated question rows -->
+                </div>
+
+                <!-- Pagination Controls for Main Question List -->
+                <div class="qb-overview-pagination-bar" id="view-overview-pagination" style="display:none;">
+                  <button type="button" class="btn-secondary btn-pagination" id="btn-overview-pagination-prev" disabled>
+                    ← PREVIOUS
+                  </button>
+                  <span class="qb-pagination-indicator" id="overview-pagination-indicator">1 / 2</span>
+                  <button type="button" class="btn-secondary btn-pagination" id="btn-overview-pagination-next">
+                    NEXT →
+                  </button>
+                </div>
+              </div>
+
+              <!-- RIGHT COLUMN: QUESTION OVERVIEW & PALETTE (~30%) -->
+              <div class="qb-overview-right-card">
+                <div class="qb-overview-right-body">
+                  <!-- Palette Header: [QUESTION MAP] QUESTION NUMBER PALETTE -->
+                  <div class="qb-overview-palette-header">
+                    <span class="qb-overview-badge-tag">QUESTION MAP</span>
+                    <span class="qb-overview-palette-title">QUESTION NUMBER PALETTE (<span id="view-overview-count-pill">10 QUESTIONS</span>)</span>
+                  </div>
+
+                  <!-- Question Number Palette Grid (Matching Screenshot 2) -->
+                  <div class="qb-overview-palette-grid" id="view-overview-palette-grid">
+                    <!-- Dynamically populated rectangular cards: 01 [EASY] Percentage, etc. -->
+                  </div>
+
+                  <!-- Pagination Controls for Question Number Palette -->
+                  <div class="qb-palette-pagination-bar" id="view-palette-pagination" style="display:none;">
+                    <button type="button" class="btn-secondary btn-pagination" id="btn-palette-pagination-prev" disabled>
+                      ← PREVIOUS
+                    </button>
+                    <span class="qb-pagination-indicator" id="palette-pagination-indicator">1 / 2</span>
+                    <button type="button" class="btn-secondary btn-pagination" id="btn-palette-pagination-next">
+                      NEXT →
+                    </button>
+                  </div>
+
+                  <!-- Difficulty Breakdown / Legend -->
+                  <div class="qb-overview-legend-box" id="view-overview-legend-box" style="margin-top:16px;">
+                    <div class="qb-overview-legend-row">
+                      <div class="qb-overview-legend-left">
+                        <span class="pal-dot pal-dot--easy"></span>
+                        <span class="qb-legend-label">EASY</span>
+                      </div>
+                      <span class="qb-legend-count" id="view-overview-easy-count">0</span>
+                    </div>
+                    <div class="qb-overview-legend-row">
+                      <div class="qb-overview-legend-left">
+                        <span class="pal-dot pal-dot--med"></span>
+                        <span class="qb-legend-label">MEDIUM</span>
+                      </div>
+                      <span class="qb-legend-count" id="view-overview-med-count">0</span>
+                    </div>
+                    <div class="qb-overview-legend-row">
+                      <div class="qb-overview-legend-left">
+                        <span class="pal-dot pal-dot--hard"></span>
+                        <span class="qb-legend-label">HARD</span>
+                      </div>
+                      <span class="qb-legend-count" id="view-overview-hard-count">0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Empty state when 0 MCQs in bank -->
+            <div class="qb-review-empty-state" id="view-overview-empty-state" style="display:none;background:var(--white);border:2px solid var(--black);box-shadow:var(--shadow-hard);padding:40px 24px;text-align:center;">
+              <div class="empty-state-title" style="font-family:var(--font-mono);font-size:16px;font-weight:900;">NO QUESTIONS IN THIS QUESTION BANK YET</div>
+              <p class="empty-state-desc" style="color:var(--gray-600);margin-top:8px;">
+                This Question Bank is currently empty. Add your first MCQ to start configuring questions.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 5. DEDICATED SINGLE QUESTION VIEW SCREEN (Opened when clicking VIEW on any question) -->
+        <div class="single-question-view-screen" id="single-question-view-screen" style="display:none;width:100%;">
+
+          <!-- Context Header Strip for Single Question View -->
+          <div class="view-bank-header-wrap" style="margin-bottom:16px;">
+            <div class="view-bank-context-strip">
+              <div class="vb-strip-section vb-strip-left">
+                <span class="badge-dot"></span>
+                <span class="vb-strip-kicker">TRAINER QUESTION BANK // VIEW QUESTION</span>
+              </div>
+              <div class="vb-strip-section vb-strip-bank">
+                <span class="vb-strip-slash">//</span>
+                <span class="vb-strip-label">BANK:</span>
+                <strong class="vb-strip-bank-badge" id="single-q-bank-badge">QUANTITATIVE APTITUDE</strong>
+              </div>
+              <div class="vb-strip-section vb-strip-stage">
+                <span class="vb-strip-slash">//</span>
+                <span class="vb-strip-label">STAGE:</span>
+                <strong class="vb-strip-stage-badge" id="single-q-stage-badge">APTITUDE</strong>
+              </div>
+            </div>
+
+            <!-- Title & Direct Back to Overview Action -->
+            <div class="view-bank-title-bar">
+              <h1 class="editorial-heading" style="font-size:22px;margin:0;line-height:1.2;letter-spacing:0.02em;">
+                <span id="single-q-page-title">QUESTION 01 DETAILS</span>
+              </h1>
+              <button type="button" class="qb-review-back-btn" id="btn-single-q-back" title="Return to Question Map">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>← BACK TO QUESTION MAP</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Question Detail Card -->
+          <div class="qb-builder-card" id="single-q-card">
+            <div class="qb-builder-card-header" style="display:flex;align-items:center;justify-content:space-between;">
+              <div class="qb-builder-title" id="single-q-card-title">
+                QUESTION 01 // MULTIPLE CHOICE QUESTION
+              </div>
+              <span class="qb-overview-diff-badge" id="single-q-diff-badge">EASY</span>
+            </div>
+
+            <div class="qb-builder-grid">
+              <!-- LEFT COLUMN: QUESTION CONTENT & OPTIONS -->
+              <div class="qb-builder-left">
+                <div class="form-field-group">
+                  <div class="form-label-row">
+                    <label class="form-label">
+                      <span>QUESTION CONTENT</span>
+                      <span style="color:var(--gray-600);font-size:10px;font-family:var(--font-mono);">READ-ONLY VIEW</span>
+                    </label>
+                  </div>
+                  <div class="single-q-text-box" id="single-q-text">
+                    <!-- Dynamic question content -->
+                  </div>
+
+                  <!-- Image Attachment (if exists) -->
+                  <div class="q-img-attach-zone" id="single-q-image-wrap" style="display:none;padding:12px;background:#fafafa;border:1.5px dashed var(--black);margin-top:10px;">
+                    <div style="display:flex;align-items:center;justify-content:center;">
+                      <img id="single-q-image-img" src="" alt="Question Graphic" style="max-height:240px;max-width:100%;object-fit:contain;border:1.5px solid var(--black);" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ANSWER OPTIONS -->
+                <div class="form-field-group">
+                  <div class="form-label">
+                    <span>ANSWER OPTIONS</span>
+                    <span style="color:var(--green);font-weight:900;">CORRECT ANSWER HIGHLIGHTED</span>
+                  </div>
+                  <div id="single-q-options-container" class="qb-options-grid">
+                    <!-- Rendered Option A, B, C, D with clear correct answer state -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT COLUMN: QUESTION SETTINGS -->
+              <div class="qb-builder-right">
+                <div class="qb-settings-panel-title">
+                  <span>QUESTION SETTINGS</span>
+                </div>
+
+                <!-- Stage -->
+                <div class="form-field-group">
+                  <label class="form-label">STAGE</label>
+                  <input type="text" id="single-q-stage" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="Aptitude" />
+                </div>
+
+                <!-- Difficulty -->
+                <div class="form-field-group">
+                  <label class="form-label">DIFFICULTY</label>
+                  <input type="text" id="single-q-difficulty" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="Medium" />
+                </div>
+
+                <!-- Priority -->
+                <div class="form-field-group">
+                  <label class="form-label">PRIORITY</label>
+                  <input type="text" id="single-q-priority" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="Medium" />
+                </div>
+
+                <!-- Marks -->
+                <div class="form-grid-2col" style="gap:10px;">
+                  <div class="form-field-group">
+                    <label class="form-label">POSITIVE MARKS</label>
+                    <input type="text" id="single-q-pos-marks" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="1" />
+                  </div>
+                  <div class="form-field-group">
+                    <label class="form-label">NEGATIVE MARKS</label>
+                    <input type="text" id="single-q-neg-marks" class="form-input" readonly style="background:#fff;cursor:default;font-weight:700;" value="0.25" />
+                  </div>
+                </div>
+
+                <!-- Topic Marker -->
+                <div class="form-field-group">
+                  <label class="form-label">TOPIC MARKER</label>
+                  <div id="single-q-tags-container" style="display:flex;flex-wrap:wrap;gap:6px;min-height:34px;align-items:center;">
+                    <!-- Topic chips -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="qb-builder-footer" style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px;flex-wrap:wrap;">
+              <div>
+                <button type="button" class="btn-secondary" id="btn-single-q-footer-back" style="display:inline-flex;align-items:center;gap:6px;">
+                  <span>←</span>
+                  <span>BACK TO QUESTION MAP</span>
+                </button>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <button type="button" class="btn-secondary" id="btn-single-q-prev">
+                  ← PREV QUESTION
+                </button>
+                <button type="button" class="btn-primary-yellow" id="btn-single-q-next" style="display:inline-flex;align-items:center;gap:6px;font-weight:900;">
+                  <span>NEXT QUESTION →</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- DEDICATED CREATE MCQ HEADER (Visible ONLY while MCQ Builder is open) -->
+        <div class="hero-editorial" id="mcq-create-hero" style="display:none;margin-bottom:20px;">
+          <div class="hero-left">
+            <div class="editorial-badge" style="margin-bottom:10px;">
+              <span class="badge-dot"></span>
+              <span>TRAINER QUESTION BANK // CREATE MCQ</span>
+              <span id="hero-stage-badge-wrap" style="display:inline-flex;align-items:center;margin-left:8px;gap:6px;">
+                <span>//</span>
+                <span>STAGE: <strong id="hero-stage-badge" style="background:var(--yellow);color:var(--black);padding:1px 6px;font-weight:900;">APTITUDE</strong></span>
+              </span>
+              <span id="hero-bank-name-badge-wrap" style="display:inline-flex;align-items:center;margin-left:8px;gap:6px;">
+                <span>//</span>
+                <span>BANK: <strong id="hero-bank-name-badge" style="background:var(--black);color:var(--yellow);padding:1px 6px;font-weight:900;"></strong></span>
+              </span>
+            </div>
+            <p class="editorial-subtitle">
+              Create and configure one MCQ question with independent content, answer options, marks, difficulty, priority, relevance, and tags.
+            </p>
+          </div>
+        </div>
+
+        <!-- CREATE MCQ NAVIGATION TABS (CURRENT QUESTION & PREVIOUS QUESTIONS) -->
+        <div class="mcq-nav-tabs-bar" id="mcq-nav-tabs-bar" style="display:none;">
+          <button type="button" class="mcq-nav-tab is-active" id="tab-btn-current-q" aria-label="Current Question">
+            <span class="tab-num">01</span>
+            <span class="tab-label">CURRENT QUESTION</span>
+          </button>
+          <button type="button" class="mcq-nav-tab" id="tab-btn-previous-q" aria-label="Previous Questions">
+            <span class="tab-num">02</span>
+            <span class="tab-label">PREVIOUS QUESTIONS</span>
+            <span class="tab-badge" id="prev-q-count-badge">0</span>
+          </button>
+        </div>
+
+        <!-- INDIVIDUAL MCQ QUESTION BUILDER CARD (2-COLUMN LAYOUT) -->
+        <div class="qb-builder-card" id="individual-mcq-builder" style="display:none;">
+          <div class="qb-builder-card-header">
+            <div class="qb-builder-title" id="builder-card-title">
+              QUESTION 01 // MULTIPLE CHOICE QUESTION
+            </div>
+            <button type="button" class="btn-icon-sm" id="btn-builder-close" title="Cancel / Close Builder">✕</button>
+          </div>
+
+          <!-- Inline Validation Notice -->
+          <div class="validation-notice" id="builder-validation-notice" style="margin:16px 24px 0;"></div>
+
+          <div class="qb-builder-grid">
+
+            <!-- LEFT COLUMN: QUESTION CONTENT & OPTIONS -->
+            <div class="qb-builder-left">
+              <!-- QUESTION CONTENT: text + optional image attachment -->
+              <div class="form-field-group" id="builder-text-wrap">
+                <div class="form-label-row">
+                  <label class="form-label" for="builder-q-text">
+                    <span>QUESTION CONTENT</span>
+                    <span style="color:var(--gray-600);font-size:10px;font-family:var(--font-mono);">TEXT / OPTIONAL IMAGE</span>
+                  </label>
+                  <button type="button" class="attach-img-btn" id="btn-q-attach-image" title="Attach image to question">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    + IMAGE
+                  </button>
+                </div>
+                <textarea
+                  id="builder-q-text"
+                  class="form-textarea"
+                  placeholder="Enter the question here..."
+                  style="min-height:90px;"
+                ></textarea>
+                <!-- Inline image attachment zone (hidden until + IMAGE clicked) -->
+                <div class="q-img-attach-zone" id="builder-image-wrap" style="display:none;">
+                  <div class="q-img-upload-trigger" id="builder-image-zone" style="cursor:pointer;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <span>CLICK TO SELECT IMAGE</span>
+                    <input type="file" id="builder-file-input" accept="image/*" style="display:none;" />
+                  </div>
+                  <div class="q-img-preview-area" id="builder-image-preview-box" style="display:none;">
+                    <img id="builder-image-img" src="" alt="Preview" />
+                    <button type="button" class="q-img-remove-btn" id="btn-builder-remove-image">✕ REMOVE IMAGE</button>
+                  </div>
+                  <span class="q-img-hint" id="q-img-hint-text">PNG · JPG · WEBP</span>
+                </div>
+              </div>
+
+
+              <!-- Answer Options Section -->
+              <div class="form-field-group">
+                <div class="form-label">
+                  <span>ANSWER OPTIONS (MIN 2, MAX 4)</span>
+                  <span style="color:var(--green);font-weight:900;">RADIO = CORRECT ANSWER</span>
+                </div>
+
+                <div id="builder-options-container" class="qb-options-grid">
+                  <!-- Rendered dynamically (Option A, B, C, D) -->
+                </div>
+
+                <div style="margin-top:10px;">
+                  <button type="button" class="btn-secondary" id="btn-builder-add-option" style="height:34px;font-size:11px;">
+                    + ADD OPTION
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN: QUESTION SETTINGS PANEL -->
+            <div class="qb-builder-right">
+              <div class="qb-settings-panel-title">
+                <span>QUESTION SETTINGS</span>
+              </div>
+
+              <!-- Stage -->
+              <div class="form-field-group" id="form-group-stage">
+                <label class="form-label" for="builder-stage">STAGE</label>
+                <select id="builder-stage" class="form-select">
+                  <option value="Aptitude">Aptitude</option>
+                  <option value="Coding">Coding</option>
+                  <option value="Communication">Communication</option>
+                </select>
+              </div>
+
+              <!-- Difficulty -->
+              <div class="form-field-group">
+                <label class="form-label" for="builder-difficulty">DIFFICULTY</label>
+                <select id="builder-difficulty" class="form-select">
+                  <option value="Easy">Easy</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Hard">Hard</option>
+                </select>
+              </div>
+
+              <!-- Priority -->
+              <div class="form-field-group">
+                <label class="form-label" for="builder-priority">PRIORITY</label>
+                <select id="builder-priority" class="form-select">
+                  <option value="Low">Low</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+
+
+              <!-- Positive & Negative Marks -->
+              <div class="form-grid-2col" style="gap:10px;">
+                <div class="form-field-group">
+                  <label class="form-label" for="builder-pos-marks">POSITIVE MARKS</label>
+                  <input type="number" id="builder-pos-marks" class="form-input" min="0" step="0.25" value="1.0" />
+                </div>
+                <div class="form-field-group">
+                  <label class="form-label" for="builder-neg-marks">NEGATIVE MARKS</label>
+                  <input type="number" id="builder-neg-marks" class="form-input" min="0" step="0.25" value="0.25" />
+                  <span style="font-size:9.5px;color:var(--gray-600);font-family:var(--font-mono);">Penalty: -0.25</span>
+                </div>
+              </div>
+
+              <!-- Topic Marker -->
+              <div class="form-field-group">
+                <label class="form-label">TOPIC MARKER</label>
+                <div id="builder-tags-container" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+                  <!-- Removable tag chips -->
+                </div>
+                <div class="tm-input-wrap">
+                  <div class="tm-field-row">
+                    <input type="text" id="builder-tag-input" class="form-input tm-text-input" placeholder="Type topic marker and click Add..." style="height:34px;font-size:11px;" autocomplete="off" />
+                    <button type="button" class="btn-secondary" id="btn-builder-add-tag" style="height:34px;font-size:11px;padding:0 10px;flex-shrink:0;">+ ADD</button>
+                  </div>
+                  <div class="tm-suggestion-dropdown" id="tm-suggestion-dropdown" style="display:none;"></div>
+                  <span class="tm-duplicate-warn" id="tm-duplicate-warn" style="display:none;">Topic already added</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Builder Footer Actions -->
+          <div class="qb-builder-footer">
+            <button type="button" class="btn-secondary" id="btn-builder-cancel">
+              CANCEL
+            </button>
+            <button type="button" class="btn-secondary" id="btn-builder-save-question">
+              SAVE QUESTION
+            </button>
+            <button type="button" class="btn-primary-yellow" id="btn-builder-add-another">
+              ADD ANOTHER QUESTION →
+            </button>
+          </div>
+        </div>
+
+        <!-- PREVIOUS QUESTIONS PANEL (Visible when PREVIOUS QUESTIONS tab is active) -->
+        <div class="qb-builder-card is-tab-hidden" id="previous-questions-panel" style="display:none;">
+          <div class="qb-builder-card-header" style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;">
+            <div class="qb-builder-title" id="prev-questions-panel-title">
+              PREVIOUS QUESTIONS // 0 QUESTIONS SAVED
+            </div>
+            <button type="button" class="btn-primary-yellow" id="btn-create-new-from-prev" style="height:32px;font-size:11px;padding:0 14px;display:inline-flex;align-items:center;gap:6px;">
+              <span>+ CREATE NEW QUESTION</span>
+            </button>
+          </div>
+
+          <div id="prev-questions-list-container" style="padding:16px;">
+            <!-- Injected dynamically by trainer-question-bank.js -->
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       PRODUCTION FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-left">
+        <span class="site-footer-brand">INTERVIEWOS &copy; 2026</span>
+        <span class="site-footer-tagline">Built for better technical interviews</span>
+      </div>
+      <nav class="site-footer-links" aria-label="Site legal links">
+        <a href="#" class="site-footer-link">Privacy</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Terms</a>
+        <span class="site-footer-sep">&middot;</span>
+        <a href="#" class="site-footer-link">Security</a>
+      </nav>
+    </div>
+  </footer>
+
+
+  <!-- ========================================================================
+       MODAL: VIEW QUESTION (READ-ONLY)
+       ======================================================================== -->
+  <div class="modal-overlay" id="modal-view" role="dialog" aria-modal="true" aria-labelledby="modal-view-title">
+    <div class="modal-container" style="max-width:680px;">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-view-title">QUESTION DETAILS</div>
+        <button type="button" class="modal-close-btn" id="btn-view-close" aria-label="Close view modal">✕</button>
+      </div>
+
+      <div class="modal-body" id="view-content-container">
+        <!-- Injected dynamically by trainer-question-bank.js -->
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="btn-view-close-alt" onclick="window.InterviewOS && window.InterviewOS.viewQuestion && document.getElementById('modal-view').classList.remove('is-visible')">
+          CLOSE
+        </button>
+        <button type="button" class="btn-primary-yellow" id="btn-view-edit">
+          EDIT QUESTION
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: DELETE CONFIRMATION
+       ======================================================================== -->
+  <div class="modal-overlay" id="modal-delete" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title">
+    <div class="modal-container" style="max-width:480px;">
+      <div class="modal-header" style="background:var(--red);color:var(--white);">
+        <div class="modal-title" id="modal-delete-title" style="color:var(--white);">DELETE THIS QUESTION?</div>
+        <button type="button" class="modal-close-btn" id="btn-cancel-delete-x" onclick="document.getElementById('modal-delete').classList.remove('is-visible')" aria-label="Close delete modal">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding:28px 24px;">
+        <p style="font-size:14.5px;font-weight:600;line-height:1.5;color:var(--black);">
+          This action will remove the question from the current question bank.
+        </p>
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--gray-500);margin-top:8px;">
+          THIS ACTION CANNOT BE UNDONE IN LOCAL STATE.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="btn-cancel-delete">
+          CANCEL
+        </button>
+        <button type="button" class="btn-primary-yellow" id="btn-confirm-delete" style="background:var(--red);color:var(--white);border-color:var(--black);">
+          DELETE QUESTION
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       TOAST NOTIFICATION
+       ======================================================================== -->
+  <div class="toast-notice" id="toast-notification" role="status" aria-live="polite">
+    <span style="font-size:15px;">⚡</span>
+    <span id="toast-text">QUESTION SAVED SUCCESSFULLY</span>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: BULK UPLOAD MCQS USING EXCEL
+       ======================================================================== -->
+  <div
+    class="bulk-modal-overlay"
+    id="modal-bulk-upload"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="bulk-modal-title"
+    aria-describedby="bulk-modal-desc"
+  >
+    <div class="bulk-modal-container">
+      <!-- Modal Header -->
+      <div class="bulk-modal-header">
+        <div class="bulk-modal-header-text">
+          <div class="bulk-modal-kicker">// QUESTION BANK</div>
+          <h2 class="bulk-modal-title" id="bulk-modal-title">BULK UPLOAD MCQs</h2>
+          <p class="bulk-modal-desc" id="bulk-modal-desc">
+            Upload multiple MCQ questions using the InterviewOS Excel template.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="bulk-modal-close-btn"
+          id="btn-close-bulk-modal"
+          aria-label="Close bulk upload modal"
+        >✕</button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="bulk-modal-body">
+        <!-- STEP 01: DOWNLOAD TEMPLATE -->
+        <div class="bulk-step-card" id="bulk-step-1">
+          <div class="bulk-step-header">
+            <span class="bulk-step-pill">STEP 01</span>
+            <span class="bulk-step-title">DOWNLOAD TEMPLATE</span>
+          </div>
+          <p class="bulk-step-desc">
+            Download the standard InterviewOS Excel template (.xlsx) with pre-configured columns and an example row.
+          </p>
+          <button type="button" class="btn-bulk-download-template" id="btn-bulk-download-template">
+            <span style="font-size: 15px; font-weight: 900;">↓</span>
+            <span>DOWNLOAD EXCEL TEMPLATE</span>
+          </button>
+        </div>
+
+        <!-- STEP 02: SELECT QUESTION BANK -->
+        <div class="bulk-step-card" id="bulk-step-2">
+          <div class="bulk-step-header">
+            <span class="bulk-step-pill">STEP 02</span>
+            <span class="bulk-step-title">SELECT QUESTION BANK</span>
+          </div>
+          <label class="bulk-field-label" for="bulk-target-bank-select">SELECT TARGET QUESTION BANK</label>
+          <div class="select-wrapper" style="margin-top: 6px;">
+            <select id="bulk-target-bank-select" class="bulk-bank-select">
+              <!-- Dynamically populated with existing Question Banks -->
+            </select>
+          </div>
+          <div class="bulk-bank-preview" id="bulk-target-bank-preview">
+            <!-- Target question bank metadata summary -->
+          </div>
+        </div>
+
+        <!-- STEP 03: UPLOAD FILE -->
+        <div class="bulk-step-card" id="bulk-step-3">
+          <div class="bulk-step-header">
+            <span class="bulk-step-pill">STEP 03</span>
+            <span class="bulk-step-title">UPLOAD FILE</span>
+          </div>
+          <p class="bulk-step-desc">
+            Select an Excel spreadsheet (.xlsx) filled with MCQ questions according to the template.
+          </p>
+
+          <!-- Dropzone -->
+          <div class="bulk-dropzone" id="bulk-file-dropzone">
+            <input type="file" id="bulk-file-input" accept=".xlsx" style="display: none;" />
+            <div class="bulk-dropzone-icon">
+              <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" fill="none" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <polyline points="9 15 12 12 15 15"></polyline>
+              </svg>
+            </div>
+            <button type="button" class="btn-bulk-choose" id="btn-bulk-browse-file">
+              CHOOSE EXCEL FILE
+            </button>
+            <span class="bulk-dropzone-hint">Accepted format: <strong>.xlsx</strong></span>
+          </div>
+
+          <!-- File Info Box (Visible once file selected) -->
+          <div class="bulk-file-info-box" id="bulk-file-info-box" style="display: none;">
+            <div class="bulk-file-meta">
+              <div class="bulk-file-name-wrap">
+                <span class="bulk-file-badge">XLSX</span>
+                <span class="bulk-file-name" id="bulk-file-name-display">filename.xlsx</span>
+              </div>
+              <span class="bulk-file-size" id="bulk-file-size-display">0 KB</span>
+            </div>
+            <div class="bulk-detected-stats">
+              <span class="bulk-detected-badge" id="bulk-detected-questions-badge">0 QUESTIONS DETECTED</span>
+              <button type="button" class="btn-bulk-remove-file" id="btn-bulk-remove-file" title="Change file">✕ CHANGE</button>
+            </div>
+          </div>
+
+          <!-- Validation Error Summary Box (Visible only if invalid rows) -->
+          <div class="bulk-error-card" id="bulk-error-card" style="display: none;">
+            <div class="bulk-error-header">
+              <span class="bulk-error-icon">⚠️</span>
+              <span class="bulk-error-title">IMPORT VALIDATION FAILED</span>
+            </div>
+            <div class="bulk-error-counts" id="bulk-error-counts">
+              <!-- e.g. 3 valid questions · 2 invalid questions -->
+            </div>
+            <div class="bulk-error-list-wrap">
+              <ul class="bulk-error-list" id="bulk-error-list">
+                <!-- Row X: error reasons -->
+              </ul>
+            </div>
+            <div class="bulk-error-footer">
+              Please correct the invalid rows in your Excel file and upload again.
+            </div>
+          </div>
+
+          <!-- Upload Action Button -->
+          <div class="bulk-upload-action-row" id="bulk-upload-action-row" style="margin-top: 14px; display: none;">
+            <button type="button" class="btn-bulk-upload-submit" id="btn-bulk-upload-submit">
+              <span>⚡</span>
+              <span>UPLOAD QUESTIONS</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- COMPLETED IMPORT SUMMARY CARD (Displayed upon successful upload) -->
+        <div class="bulk-summary-card" id="bulk-summary-card" style="display: none;">
+          <div class="bulk-summary-header">
+            <span class="bulk-summary-badge">✓ SUCCESS</span>
+            <h3 class="bulk-summary-title">IMPORT COMPLETE</h3>
+          </div>
+          <p class="bulk-summary-subtitle" id="bulk-summary-subtitle">
+            Questions have been successfully processed and saved.
+          </p>
+
+          <div class="bulk-summary-grid">
+            <div class="bulk-summary-item">
+              <span class="bulk-summary-lbl">QUESTIONS DETECTED</span>
+              <span class="bulk-summary-val" id="sum-val-detected">0</span>
+            </div>
+            <div class="bulk-summary-item" style="border-left: 3px solid var(--green, #00875a);">
+              <span class="bulk-summary-lbl">QUESTIONS ADDED</span>
+              <span class="bulk-summary-val" id="sum-val-added" style="color: var(--green, #00875a);">0</span>
+            </div>
+            <div class="bulk-summary-item" style="border-left: 3px solid #b58900;">
+              <span class="bulk-summary-lbl">DUPLICATES SKIPPED</span>
+              <span class="bulk-summary-val" id="sum-val-duplicates">0</span>
+            </div>
+            <div class="bulk-summary-item" style="border-left: 3px solid var(--red, #d32f2f);">
+              <span class="bulk-summary-lbl">INVALID ROWS</span>
+              <span class="bulk-summary-val" id="sum-val-invalid">0</span>
+            </div>
+          </div>
+
+          <div class="bulk-summary-actions" style="margin-top: 8px;">
+            <button type="button" class="btn-bulk-done" id="btn-bulk-done">
+              DONE
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Standalone Script -->
+  <script src="xlsx.full.min.js"></script>
+  <script src="trainer-question-bank.js?v=2.2"></script>
+  <script src="bulk-upload.js"></script>
+</body>
+</html>

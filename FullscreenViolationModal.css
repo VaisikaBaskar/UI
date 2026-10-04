@@ -1,0 +1,256 @@
+/* ==========================================================================
+   InterviewOS — FullscreenViolationModal.css
+   Scoped styles for React FullscreenViolationModal Component
+   Visual Language: Neubrutalist / Technical Editorial / Developer-Focused
+   Reference: builddistributedsystem.com / InterviewOS Product Family
+   Scoped Prefix: fullscreen-violation-*
+   ========================================================================== */
+
+.fullscreen-violation-root {
+  --fv-black:        #0a0a0a;
+  --fv-white:        #ffffff;
+  --fv-yellow:       #ffe500;
+  --fv-yellow-light: #fffde6;
+  --fv-yellow-hover: #ffd700;
+  --fv-gray-100:     #f4f4f2;
+  --fv-gray-300:     #c8c8c2;
+  --fv-gray-500:     #686860;
+  --fv-gray-600:     #4e4e47;
+  
+  --fv-shadow-modal: 8px 8px 0px 0px #0a0a0a;
+  --fv-shadow-box:   4px 4px 0px 0px #0a0a0a;
+  --fv-shadow-alert: 3px 3px 0px 0px #0a0a0a;
+  --fv-shadow-btn:   4px 4px 0px 0px #0a0a0a;
+  --fv-shadow-sm:    2px 2px 0px 0px #0a0a0a;
+
+  --fv-font-sans:    'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --fv-font-mono:    'IBM Plex Mono', 'JetBrains Mono', 'Roboto Mono', 'Courier New', monospace;
+}
+
+/* 1. Fullscreen Dark Overlay */
+.fullscreen-violation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background-color: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  font-family: var(--fv-font-sans, 'Inter', sans-serif);
+  color: #0a0a0a;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 2. Centered White Modal */
+.fullscreen-violation-modal {
+  position: relative;
+  z-index: 10;
+  background-color: #ffffff;
+  border: 2px solid #0a0a0a;
+  box-shadow: 8px 8px 0px 0px #0a0a0a;
+  width: 100%;
+  max-width: 456px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  overflow: hidden;
+  text-align: left;
+  animation: fvModalFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fvModalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal Inner Body */
+.fullscreen-violation-modal-body {
+  padding: 24px 24px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* 4. Status Row */
+.fullscreen-violation-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.fullscreen-violation-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffe500;
+  color: #0a0a0a;
+  font-family: var(--fv-font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1.5px solid #0a0a0a;
+  box-shadow: 2px 2px 0px 0px #0a0a0a;
+  border-radius: 0;
+  line-height: 1.2;
+}
+
+.fullscreen-violation-status-label {
+  font-family: var(--fv-font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #686860;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* 5. Main Heading */
+.fullscreen-violation-title {
+  color: #0a0a0a;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 0 0 14px 0;
+  font-family: var(--fv-font-sans, 'Inter', sans-serif);
+}
+
+/* 6. Red Warning Message Box */
+.fullscreen-violation-warning-box {
+  background-color: #FF2056;
+  border: 2px solid #0a0a0a;
+  box-shadow: 2px 2px 0px 0px #0a0a0a;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.fullscreen-violation-warning-headline {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: #0a0a0a;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  margin: 0 0 4px 0;
+  font-family: var(--fv-font-sans, 'Inter', sans-serif);
+}
+
+.fullscreen-violation-warning-subtext {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0a0a0a;
+  line-height: 1.45;
+  margin: 0;
+  font-family: var(--fv-font-sans, 'Inter', sans-serif);
+}
+
+/* 7. Violation Statistics Box */
+.fullscreen-violation-stats-box {
+  background-color: #ffffff;
+  border: 1.5px solid #0a0a0a;
+  box-shadow: 2px 2px 0px 0px #0a0a0a;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.fullscreen-violation-stat-item {
+  font-family: var(--fv-font-mono, monospace);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #4e4e47;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.fullscreen-violation-stat-item strong {
+  color: #0a0a0a;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* 8. Yellow Action Button */
+.fullscreen-violation-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 44px;
+  background-color: #ffe500;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+  box-shadow: 4px 4px 0px 0px #0a0a0a;
+  font-family: var(--fv-font-mono, monospace);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.12s ease;
+  box-sizing: border-box;
+}
+
+.fullscreen-violation-action-btn:hover {
+  background-color: #ffd700;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px #0a0a0a;
+}
+
+.fullscreen-violation-action-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #0a0a0a;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 520px) {
+  .fullscreen-violation-overlay {
+    padding: 16px 12px;
+  }
+
+  .fullscreen-violation-modal {
+    max-width: 100%;
+    width: calc(100% - 8px);
+    box-shadow: 5px 5px 0px 0px #0a0a0a;
+  }
+
+  .fullscreen-violation-modal-body {
+    padding: 18px 16px 16px 16px;
+  }
+
+  .fullscreen-violation-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .fullscreen-violation-stats-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 9px 12px;
+  }
+}

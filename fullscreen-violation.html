@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fullscreen Violation — InterviewOS</title>
+  <meta
+    name="description"
+    content="InterviewOS proctored assessment fullscreen violation warning modal."
+  />
+
+  <!-- Google Fonts: Inter, IBM Plex Mono, JetBrains Mono & Roboto Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&family=Roboto+Mono:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Dedicated Stylesheet -->
+  <link rel="stylesheet" href="fullscreen-violation.css" />
+</head>
+<body style="margin: 0; padding: 0; background: #ffffff;">
+
+  <!-- FULLSCREEN VIOLATION CONTAINER -->
+  <div class="fullscreen-violation-root fullscreen-violation-standalone" id="fullscreen-violation-root">
+    
+    <!-- MOCK DIMMED ASSESSMENT UNDERLAY (VISUAL DEMO OF TEST UNDERNEATH) -->
+    <div class="fullscreen-violation-underlay" aria-hidden="true">
+      <div class="fullscreen-violation-underlay-header">
+        <div><strong>INTERVIEWOS</strong> / DISTRIBUTED SYSTEMS ASSESSMENT</div>
+        <div>TIME REMAINING: 18:42</div>
+      </div>
+      <div class="fullscreen-violation-underlay-content">
+        <div class="fullscreen-violation-underlay-box">
+          <h3>Question 4 of 12</h3>
+          <p>Explain the difference between Raft and Paxos consensus algorithms regarding leader election and log replication guarantees...</p>
+        </div>
+        <div class="fullscreen-violation-underlay-box">
+          <h4>Proctoring Monitor</h4>
+          <p>Status: Active (Webcam + Screen)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. FULLSCREEN DARK OVERLAY -->
+    <div class="fullscreen-violation-overlay" id="fullscreen-violation-overlay">
+      
+      <!-- 2. CENTERED WHITE MODAL -->
+      <div
+        class="fullscreen-violation-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="fullscreen-violation-title"
+      >
+        <!-- MODAL INNER BODY -->
+        <div class="fullscreen-violation-modal-body">
+          
+          <!-- 4. STATUS ROW -->
+          <div class="fullscreen-violation-status-row">
+            <span class="fullscreen-violation-badge">WARNING 1 / 3</span>
+            <span class="fullscreen-violation-status-label">PROCTORING VIOLATION</span>
+          </div>
+
+          <!-- 5. MAIN HEADING -->
+          <h1 class="fullscreen-violation-title" id="fullscreen-violation-title">
+            FULLSCREEN EXITED
+          </h1>
+
+          <!-- 6. YELLOW WARNING MESSAGE BOX -->
+          <div class="fullscreen-violation-warning-box" role="alert">
+            <div class="fullscreen-violation-warning-headline">
+              You exited fullscreen mode.
+            </div>
+            <div class="fullscreen-violation-warning-subtext">
+              Please return to fullscreen immediately. Repeated violations will result in automatic test submission.
+            </div>
+          </div>
+
+          <!-- 7. VIOLATION STATISTICS BOX -->
+          <div
+            class="fullscreen-violation-stats-box"
+            aria-label="Proctoring Warning Statistics"
+          >
+            <div class="fullscreen-violation-stat-item">
+              VIOLATIONS: <strong>1 / 3</strong>
+            </div>
+            <div class="fullscreen-violation-stat-item">
+              WARNINGS LEFT: <strong>2</strong>
+            </div>
+          </div>
+
+          <!-- 8. YELLOW ACTION BUTTON -->
+          <button
+            type="button"
+            class="fullscreen-violation-action-btn"
+            id="fullscreen-violation-action-btn"
+            onclick="handleReturnToFullscreen()"
+          >
+            RETURN TO FULLSCREEN
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function handleReturnToFullscreen() {
+      // Attempt standard browser fullscreen request
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen();
+      }
+
+      // Visual feedback: dismiss modal or redirect if integrated
+      const overlay = document.getElementById('fullscreen-violation-overlay');
+      if (overlay) {
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 150);
+      }
+    }
+  </script>
+
+</body>
+</html>
